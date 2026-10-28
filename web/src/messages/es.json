@@ -1,0 +1,13 @@
+{
+  "shell": {
+    "description": "La base de la aplicación está lista.",
+    "language": "Idioma",
+    "platform": "Plataforma: {platform}",
+    "bridge": "Conexión nativa: {state}",
+    "states": {
+      "disconnected": "desconectada",
+      "connecting": "conectando",
+      "connected": "conectada"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+datasource db {
+  provider = "postgresql"
+}
+// Domain models and migrations will be introduced after product requirements are approved.

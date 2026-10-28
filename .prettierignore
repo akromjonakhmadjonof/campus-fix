@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.expo/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+pnpm-lock.yaml
+prompt.md
+api/src/generated/
+mobile/ios/
+mobile/android/

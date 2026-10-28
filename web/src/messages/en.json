@@ -1,0 +1,13 @@
+{
+  "shell": {
+    "description": "The application foundation is ready.",
+    "language": "Language",
+    "platform": "Platform: {platform}",
+    "bridge": "Native connection: {state}",
+    "states": {
+      "disconnected": "disconnected",
+      "connecting": "connecting",
+      "connected": "connected"
+    }
+  }
+}

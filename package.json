@@ -1,0 +1,43 @@
+{
+  "name": "campus-fix",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.17.0",
+  "engines": {
+    "node": ">=24.12.0 <25",
+    "pnpm": ">=11.17.0 <12"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @campus-fix/web --filter @campus-fix/api dev",
+    "dev:web": "pnpm --filter @campus-fix/web dev",
+    "dev:api": "pnpm --filter @campus-fix/api dev",
+    "dev:mobile": "pnpm --filter @campus-fix/mobile start",
+    "build": "pnpm --filter @campus-fix/api build && pnpm --filter @campus-fix/web build",
+    "lint": "eslint scripts && pnpm -r lint",
+    "lint:fix": "eslint --fix scripts && pnpm -r lint:fix",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "pnpm -r --if-present test",
+    "test:e2e": "pnpm --filter @campus-fix/web test:e2e",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
+    "db:generate": "pnpm --filter @campus-fix/api db:generate",
+    "db:validate": "pnpm --filter @campus-fix/api db:validate",
+    "db:migrate": "pnpm --filter @campus-fix/api db:migrate",
+    "db:studio": "pnpm --filter @campus-fix/api db:studio",
+    "postinstall": "pnpm db:generate",
+    "mobile:android": "pnpm --filter @campus-fix/mobile android",
+    "mobile:ios": "pnpm --filter @campus-fix/mobile ios",
+    "mobile:iphone": "pnpm --filter @campus-fix/mobile iphone",
+    "mobile:emulator": "node scripts/mobile.mjs emulator",
+    "mobile:forward": "node scripts/mobile.mjs forward",
+    "mobile:doctor": "node scripts/mobile.mjs doctor",
+    "dev:phone": "pnpm --filter @campus-fix/mobile start:phone"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "prettier": "^3.8.4",
+    "typescript-eslint": "^8.0.0"
+  }
+}
