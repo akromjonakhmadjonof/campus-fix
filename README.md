@@ -170,8 +170,10 @@ pnpm dev:phone            # WebView uses this Mac's Wi-Fi address; Metro uses LA
 ```
 
 These commands set `APP_VARIANT=development` and select the WebView URL for that
-session, so switching devices does not require rewriting `.env`. To override
-network detection explicitly:
+session, so switching devices does not require rewriting `.env`. Stop the previous
+Metro process before switching between simulator and phone modes: an already
+running Metro process keeps its original `EXPO_PUBLIC_WEB_URL`. For phone testing,
+restart it with `pnpm dev:phone` if necessary. To override network detection explicitly:
 
 ```sh
 MOBILE_HOST=192.168.1.50 pnpm mobile:iphone
@@ -185,7 +187,7 @@ For a physical iPhone, complete these device/account steps:
    be used for local testing; its provisioning restrictions still apply.
 2. Connect the unlocked phone by USB and choose **Trust This Computer**. Enable
    **Developer Mode** in iPhone Settings → Privacy & Security, including the restart
-   if requested. Open Xcode's Devices and Simulators window to confirm it is paired.
+   if requested. Open Xcode’s Device Hub (Devices and Simulators on older Xcode) to confirm it is paired.
 3. In the generated `mobile/ios/CampusFix.xcworkspace`, select the CampusFix app
    target → Signing & Capabilities → choose your Team and automatic signing. If the
    default bundle identifier is unavailable, change `ios.bundleIdentifier` in
@@ -193,7 +195,7 @@ For a physical iPhone, complete these device/account steps:
 4. Keep Mac and phone on a mutually reachable network. Open
    `http://YOUR_MAC_WIFI_ADDRESS:3000/en` in iPhone Safari first. Allow the native
    app's local-network permission when prompted, then run `pnpm mobile:iphone`.
-5. You can enable wireless connection for the paired device in Xcode afterward.
+5. You can enable wireless connection for the paired device in Xcode’s Device Hub afterward.
    The Mac must still serve both Next and Metro. Rebuild after native dependency
    or native configuration changes; ordinary web changes only need Next running.
 
@@ -202,8 +204,13 @@ If Safari cannot reach the Mac, connect the Mac to the iPhone's Personal Hotspot
 or use another network that allows device-to-device traffic, then rerun the phone
 command so it detects the new address. No tunnel or cloud service is required.
 
+On Xcode 27, use **Xcode → Open Developer Tool → Device Hub** to view and interact
+with simulators; it replaces the older standalone Simulator app. The installed
+Expo CLI supports Device Hub. A dedicated **CampusFix iPhone 16 Pro Max** simulator
+uses the compatible iOS 27.0 runtime; the iOS 27.1 runtime is specific to iPhone Duo.
+
 The Mac has 16 GB RAM: run one emulator/simulator at a time if memory pressure is
-high. The Android virtual device uses 2 GB RAM and the ARM64 Google APIs image.
+high. The Android virtual device uses 3 GB RAM and the ARM64 Google APIs image.
 Keep native tools on stable versions and use a simulator runtime supported by the
 installed Xcode version. Additional runtime/device profiles can be added later.
 

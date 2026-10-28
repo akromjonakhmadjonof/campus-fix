@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { usePlatform } from "@/hooks/use-platform";
+
 export function PlatformStatus() {
   const { platform, bridgeState } = usePlatform();
   const t = useTranslations("shell");

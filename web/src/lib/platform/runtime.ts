@@ -6,11 +6,13 @@ export interface PlatformInfo {
   isWeb: boolean;
   bridgeState: "disconnected" | "connecting" | "connected";
 }
+
 declare global {
   interface Window {
     ReactNativeWebView?: { postMessage(message: string): void };
   }
 }
+
 export const browserPlatform: PlatformInfo = {
   platform: "web",
   isNative: false,
@@ -18,7 +20,9 @@ export const browserPlatform: PlatformInfo = {
   bridgeState: "disconnected",
 };
 let snapshot = browserPlatform;
+
 const listeners = new Set<() => void>();
+
 export function getPlatformSnapshot() {
   return snapshot;
 }
