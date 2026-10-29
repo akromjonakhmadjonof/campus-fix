@@ -1,0 +1,219 @@
+welcome|مرحبًا|Добро пожаловать|Xush kelibsiz
+home|الرئيسية|Главная|Bosh sahifa
+explore|استكشاف|Обзор|Koʻrib chiqish
+settings|الإعدادات|Настройки|Sozlamalar
+activity|نشاطي|Моя активность|Faoliyatim
+campus|Penn State Abington|Penn State Abington|Penn State Abington
+tagline|معًا نحو حرم جامعي أفضل.|Вместе сделаем кампус лучше.|Birgalikda yaxshiroq kampus sari.
+guest|مُبلّغ ضيف|Гость|Mehmon xabarchi
+device|بلاغات مرتبطة بهذا المتصفح أو التطبيق|Заявки связаны с этим браузером или приложением|Xabarlar shu brauzer yoki ilovaga bogʻlangan
+overview|نظرة عامة على الحرم|Обзор кампуса|Kampus haqida
+today|آخر المستجدات في الحرم الجامعي.|Что происходит в кампусе.|Kampusdagi soʻnggi yangiliklar.
+report|إنشاء بلاغ|Создать заявку|Xabar yuborish
+reportSubtitle|بلاغ صغير يُحدث فرقًا كبيرًا.|Даже одна заявка может многое изменить.|Bitta xabar ham katta oʻzgarish keltiradi.
+open|بلاغات مفتوحة|Открытые заявки|Ochiq xabarlar
+progress|تقدّم البلاغ|Ход выполнения|Xabar holati
+resolved|تم الحل|Решено|Hal qilindi
+allReports|جميع البلاغات|Все заявки|Barcha xabarlar
+recent|النشاط الأخير|Последняя активность|Soʻnggi faoliyat
+seeAll|عرض المزيد|Показать ещё|Koʻproq koʻrish
+campusActivity|نشاط الحرم الجامعي|Активность в кампусе|Kampus faoliyati
+week|آخر ٧ أيام|Последние 7 дней|Oxirgi 7 kun
+reportsWeek|{count} بلاغ هذا الأسبوع|Заявок за неделю: {count}|Bu hafta {count} ta xabar
+chartLabel|البلاغات اليومية خلال آخر سبعة أيام|Заявки по дням за последние семь дней|Oxirgi yetti kundagi kunlik xabarlar
+noActivity|لا توجد بلاغات هذا الأسبوع بعد.|На этой неделе заявок пока нет.|Bu hafta hali xabarlar yoʻq.
+exploreTitle|البلاغات|Заявки|Xabarlar
+exploreSubtitle|استكشف مشكلات الحرم وساهم في تحسينه.|Помогайте делать кампус лучше.|Kampusni yaxshilashga hissa qoʻshing.
+search|البحث في البلاغات|Поиск заявок|Xabarlarni qidirish
+all|الكل|Все|Barchasi
+allLocations|جميع المواقع|Все места|Barcha joylar
+allStatuses|جميع الحالات|Все статусы|Barcha holatlar
+filters|تصفية|Фильтры|Filtrlar
+newest|الأحدث أولًا|Сначала новые|Avval yangilari
+popular|الأكثر تأييدًا|Больше подтверждений|Eng koʻp tasdiqlangan
+sort|الترتيب|Сортировка|Saralash
+results|عدد البلاغات: {count}|Заявок: {count}|Xabarlar: {count}
+details|عرض التفاصيل|Подробнее|Batafsil
+confirm|أرى المشكلة أيضًا|Тоже вижу проблему|Men ham koʻrdim
+confirmed|تم التأييد|Подтверждено|Tasdiqlangan
+confirmations|عدد التأييدات: {count}|Подтверждений: {count}|Tasdiqlar: {count}
+confirmedSuccess|شكرًا لتأكيد وجود المشكلة.|Спасибо за подтверждение проблемы.|Muammoni tasdiqlaganingiz uchun rahmat.
+loading|جارٍ التحميل…|Загрузка…|Yuklanmoqda…
+error|تعذّر التحميل. يُرجى المحاولة مجددًا.|Не удалось загрузить. Попробуйте ещё раз.|Yuklab boʻlmadi. Qayta urinib koʻring.
+retry|إعادة المحاولة|Повторить|Qayta urinish
+empty|لا يوجد شيء هنا بعد|Пока ничего нет|Hali hech narsa yoʻq
+emptyHint|ستظهر البلاغات هنا بعد إرسالها.|Отправленные заявки появятся здесь.|Yuborilgan xabarlar shu yerda koʻrinadi.
+noResults|لا توجد بلاغات تطابق هذه المرشحات.|Нет заявок с такими фильтрами.|Bu filtrlarga mos xabar topilmadi.
+clearFilters|مسح المرشحات|Сбросить фильтры|Filtrlarni tozalash
+back|رجوع|Назад|Orqaga
+next|التالي|Далее|Keyingi
+previous|السابق|Предыдущая|Oldingi
+page|الصفحة {page}|Страница {page}|{page}-sahifa
+close|إغلاق|Закрыть|Yopish
+cancel|إلغاء|Отмена|Bekor qilish
+save|حفظ التغييرات|Сохранить изменения|Oʻzgarishlarni saqlash
+saving|جارٍ الحفظ…|Сохранение…|Saqlanmoqda…
+saved|تم حفظ التغييرات.|Изменения сохранены.|Oʻzgarishlar saqlandi.
+notFound|هذا البلاغ غير متاح.|Эта заявка недоступна.|Bu xabar mavjud emas.
+general|عام|Общие|Umumiy
+language|اللغة|Язык|Til
+appearance|المظهر|Оформление|Koʻrinish
+light|فاتح|Светлое|Yorugʻ
+dark|داكن|Тёмное|Tungi
+system|النظام|Как в системе|Tizimga mos
+reduceMotion|تقليل الحركة|Меньше анимации|Animatsiyani kamaytirish
+reduceHint|انتقالات أبسط|Простые переходы|Sodda oʻtishlar
+about|حول التطبيق|О приложении|Ilova haqida
+version|إصدار التطبيق|Версия приложения|Ilova versiyasi
+aboutCampus|حول CampusFix|О CampusFix|CampusFix haqida
+privacy|الخصوصية|Конфиденциальность|Maxfiylik
+openSource|البرامج مفتوحة المصدر|Открытое ПО|Ochiq kodli dasturlar
+aboutText|يساعد CampusFix مجتمع الحرم على الإبلاغ عن مشكلات الصيانة ومتابعة إصلاحها. هذا مشروع تجريبي مستقل، وليس خدمة رسمية أو للطوارئ.|CampusFix помогает сообщать о проблемах в кампусе и следить за ремонтом. Это независимый демонстрационный проект, а не официальная или экстренная служба.|CampusFix kampusdagi muammolar haqida xabar berish va taʼmirlashni kuzatishga yordam beradi. Bu mustaqil namoyish loyihasi, rasmiy yoki favqulodda xizmat emas.
+privacyText|يربط ملف تعريف ارتباط آمن بلاغاتك بهذا المتصفح أو التطبيق. الاسم المستعار والصورة اختياريان ومتاحان فقط لملفك المرتبط. لا يلزم إدخال بريد إلكتروني أو رقم جامعي. حذف ملفات تعريف الارتباط قد يفقدك الوصول ما لم تحتفظ باتصال مرتبط. نصوص البلاغات وصورها عامة؛ تجنّب المعلومات الشخصية. تُزال بيانات الصور الوصفية عند الرفع.|Защищённый cookie связывает заявки с браузером или приложением. Псевдоним и аватар необязательны и доступны только связанному профилю. Почта и студенческий номер не нужны. При удалении cookie доступ можно потерять, если не осталось связанного подключения. Текст и фотографии заявок публичны: не добавляйте личные данные. Метаданные изображений удаляются при загрузке.|Xavfsiz cookie xabarlarni brauzer yoki ilovaga bogʻlaydi. Taxallus va avatar ixtiyoriy, ularni faqat bogʻlangan profilingiz koʻradi. Email yoki talaba raqami talab qilinmaydi. Cookie oʻchirilsa, boshqa bogʻlangan ulanish boʻlmasa, kirish yoʻqolishi mumkin. Xabar matni va rasmlari hammaga ochiq; shaxsiy maʼlumot kiritmang. Yuklangan rasmlarning metamaʼlumotlari olib tashlanadi.
+softwareText|بُني التطبيق باستخدام Next.js وReact وFastify وPrisma ومكتبات مفتوحة المصدر أخرى. تتضمن ملفات المشروع قائمة الاعتماديات. تراخيص الجهات الخارجية محفوظة لأصحابها.|Приложение использует Next.js, React, Fastify, Prisma и другие открытые библиотеки. Полный список зависимостей есть в проекте. Права на сторонние лицензии принадлежат их авторам.|Ilova Next.js, React, Fastify, Prisma va boshqa ochiq kodli kutubxonalardan foydalanadi. Toʻliq roʻyxat loyiha fayllarida bor. Uchinchi tomon litsenziyalari oʻz mualliflariga tegishli.
+myReports|بلاغاتي|Мои заявки|Xabarlarim
+confirmedIssues|بلاغات أيّدتها|Подтверждённые мной|Men tasdiqlagan xabarlar
+deviceActivity|مساهماتك في الحرم الجامعي|Ваш вклад в жизнь кампуса|Kampusga qoʻshgan hissangiz
+viewReports|البلاغات التي أرسلتها|Отправленные вами заявки|Siz yuborgan xabarlar
+viewConfirmed|المشكلات التي أيّدتها|Подтверждённые вами проблемы|Siz tasdiqlagan muammolar
+maintenance|دخول الصيانة|Доступ для сотрудников|Xodimlar uchun kirish
+staffEntry|تسجيل دخول الموظفين|Вход для сотрудников|Xodim sifatida kirish
+staffDescription|مساحة مخصّصة لفريق الصيانة|Отдельное пространство службы эксплуатации|Texnik xizmat jamoasi uchun alohida boʻlim
+privacyShort|هويتك خاصة. وبلاغاتك تفيد الجميع.|Ваша личность скрыта. Ваши заявки помогают всем.|Shaxsingiz maxfiy. Xabarlaringiz hammaga yordam beradi.
+newReport|بلاغ جديد|Новая заявка|Yangi xabar
+describe|أخبرنا بما يحتاج إلى عناية.|Расскажите, что требует внимания.|Nimaga eʼtibor kerakligini ayting.
+title|عنوان البلاغ|Заголовок заявки|Xabar sarlavhasi
+titlePlaceholder|مثلًا: تسرّب في نافورة الشرب|Например: протекает питьевой фонтанчик|Masalan: ichimlik favvorasidan suv sizmoqda
+description|ما المشكلة؟|Что случилось?|Nima boʻldi?
+descriptionPlaceholder|صِف المشكلة وتأثيرها في المكان…|Опишите проблему и её влияние на пространство…|Muammoni va uning atrofga taʼsirini tasvirlang…
+category|الفئة|Категория|Toifa
+chooseCategory|اختر فئة|Выберите категорию|Toifani tanlang
+location|الموقع في الحرم|Место в кампусе|Kampusdagi joy
+chooseLocation|اختر موقعًا|Выберите место|Joyni tanlang
+subLocation|الطابق أو الغرفة أو المنطقة (اختياري)|Этаж, комната или зона (необязательно)|Qavat, xona yoki hudud (ixtiyoriy)
+thisLevel|استخدم هذا الموقع|Использовать это место|Shu joyni tanlash
+exactLocation|أين بالضبط؟|Где именно?|Aynan qayerda?
+exactPlaceholder|مثلًا: بجانب الدرج، مقابل المدخل الرئيسي|Например: у лестницы напротив главного входа|Masalan: zinapoya yonida, asosiy kirish qarshisida
+locationHint|أسماء المواقع مرجعية؛ يمكنك توضيح الموضع الدقيق أدناه.|Список мест справочный; уточните расположение ниже.|Joylar roʻyxati maʼlumot uchun; aniq joyni quyida yozing.
+photo|الصور|Изображения|Rasmlar
+photoHint|من صورة إلى ٣ صور · JPEG أو PNG أو WebP · حتى ٥ ميغابايت لكل صورة. صوّر الأشياء فقط، دون أشخاص أو هويات.|1–3 изображения · JPEG, PNG или WebP · до 5 МБ каждое. Только объекты, без людей и документов.|1–3 ta rasm · JPEG, PNG yoki WebP · har biri 5 MB gacha. Faqat buyumlar, odamlar yoki hujjatlarsiz.
+choosePhoto|اختيار صورة|Выбрать фото|Rasm tanlash
+replacePhoto|استبدال الصورة|Заменить фото|Rasmni almashtirish
+removePhoto|إزالة|Удалить|Olib tashlash
+photoPreview|معاينة صورة البلاغ|Предпросмотр фото заявки|Xabar rasmi koʻrinishi
+uploading|جارٍ رفع الصورة…|Загрузка фотографии…|Rasm yuklanmoqda…
+photoError|اختر صورة JPEG أو PNG أو WebP بحجم لا يتجاوز ٥ ميغابايت.|Выберите JPEG, PNG или WebP размером до 5 МБ.|5 MB gacha JPEG, PNG yoki WebP rasmini tanlang.
+validation|تحقّق من الحقول المحددة.|Проверьте отмеченные поля.|Belgilangan maydonlarni tekshiring.
+required|هذا الحقل مطلوب.|Обязательное поле.|Bu maydon majburiy.
+titleInvalid|استخدم من ٣ إلى ١٢٠ حرفًا.|От 3 до 120 символов.|3–120 ta belgi kiriting.
+descriptionInvalid|استخدم من ١٠ إلى ٤٠٠٠ حرف.|От 10 до 4000 символов.|10–4000 ta belgi kiriting.
+exactInvalid|استخدم من ٣ إلى ٣٠٠ حرف.|От 3 до 300 символов.|3–300 ta belgi kiriting.
+review|مراجعة البلاغات المشابهة|Проверить похожие заявки|Oʻxshash xabarlarni tekshirish
+similarTitle|هل أبلغ أحد عن المشكلة؟|Уже есть похожая заявка?|Bu haqda avval xabar berilganmi?
+similarHint|راجع البلاغات المشابهة قبل إرسال بلاغ جديد.|Проверьте похожие заявки перед отправкой новой.|Yangi xabar yuborishdan oldin oʻxshashlarini tekshiring.
+noSimilar|لم نجد بلاغات مفتوحة مشابهة.|Похожих открытых заявок нет.|Oʻxshash ochiq xabarlar topilmadi.
+differentIssue|هذه مشكلة أخرى — إرسال|Это другая проблема — отправить|Bu boshqa muammo — yuborish
+submit|إرسال البلاغ|Отправить заявку|Xabarni yuborish
+submitted|تم إرسال بلاغك.|Ваша заявка отправлена.|Xabaringiz yuborildi.
+reportFailed|تعذّر الإرسال. بيانات النموذج محفوظة هنا.|Не удалось отправить. Данные формы сохранены.|Yuborib boʻlmadi. Kiritilgan maʼlumotlar saqlanib turibdi.
+edit|تعديل البلاغ|Редактировать заявку|Xabarni tahrirlash
+editHint|يمكنك تعديل البلاغ قبل أن يقبله فريق الصيانة.|Заявку можно изменить, пока её не приняли.|Xodim qabul qilguncha xabarni tahrirlashingiz mumkin.
+photoRequired|أضف صورة واحدة على الأقل.|Добавьте хотя бы одно изображение.|Kamida bitta rasm qoʻshing.
+timeline|مراحل البلاغ|История статусов|Holatlar tarixi
+reportedOn|أُرسل في {date}|Отправлено: {date}|Yuborilgan: {date}
+descriptionHeading|حول هذه المشكلة|О проблеме|Muammo haqida
+exactHeading|موضع المشكلة|Где искать проблему|Muammoning aniq joyi
+youReported|بلاغك|Ваша заявка|Sizning xabaringiz
+reportPhoto|صورة: {title}|Фото: {title}|Rasm: {title}
+helpConfirm|هل ترى المشكلة أيضًا؟ أخبر فريق الصيانة.|Видите ту же проблему? Подтвердите её.|Siz ham shu muammoni koʻrdingizmi? Tasdiqlang.
+staffTitle|مساحة الصيانة|Кабинет службы эксплуатации|Texnik xizmat boʻlimi
+staffHint|سجّل الدخول بحساب الصيانة.|Войдите в аккаунт сотрудника.|Xodim hisobingiz orqali kiring.
+username|اسم المستخدم|Имя пользователя|Foydalanuvchi nomi
+password|كلمة المرور|Пароль|Parol
+signIn|تسجيل الدخول|Войти|Kirish
+signOut|تسجيل الخروج|Выйти|Chiqish
+loginFailed|تعذّر تسجيل الدخول. تحقّق من البيانات وحاول مجددًا.|Не удалось войти. Проверьте данные и попробуйте снова.|Kirish amalga oshmadi. Maʼlumotlarni tekshirib, qayta urining.
+workQueue|قائمة الصيانة|Очередь заявок|Texnik xizmat navbati
+staffWelcome|مرحبًا، {name}|Здравствуйте, {name}|Xush kelibsiz, {name}
+startWork|بدء العمل|Начать работу|Ishni boshlash
+resolve|وضع علامة تم الحل|Отметить решённой|Hal qilindi deb belgilash
+statusNote|ملاحظة التحديث|Примечание к обновлению|Yangilash izohi
+statusNotePlaceholder|ما الذي فُحص أو أُصلح؟|Что проверено или отремонтировано?|Nima tekshirildi yoki taʼmirlandi?
+updateStatus|تحديث الحالة|Обновить статус|Holatni yangilash
+statusUpdated|تم تحديث الحالة.|Статус обновлён.|Holat yangilandi.
+statusFailed|تعذّر تحديث البلاغ. حدّث الصفحة وحاول مجددًا.|Не удалось обновить. Перезагрузите страницу и попробуйте снова.|Yangilab boʻlmadi. Sahifani yangilab, qayta urining.
+noteRequired|أضف ملاحظة من ٣ إلى ٥٠٠ حرف.|Добавьте примечание от 3 до 500 символов.|3–500 ta belgidan iborat izoh kiriting.
+viewAll|عرض جميع البلاغات|Все заявки|Barcha xabarlarni koʻrish
+sessionExpired|انتهت صلاحية الاتصال. حدّث الصفحة للمتابعة.|Подключение истекло. Обновите страницу.|Ulanish muddati tugadi. Sahifani yangilang.
+rateLimited|طلبات كثيرة. انتظر قليلًا ثم حاول مجددًا.|Слишком много запросов. Подождите и повторите.|Soʻrovlar juda koʻp. Biroz kutib, qayta urining.
+optional|اختياري|Необязательно|Ixtiyoriy
+demo|بيانات تجريبية|Демонстрационные данные|Namoyish maʼlumotlari
+securityHint|للموظفين فقط. لا يحتاج الطلاب إلى حساب.|Только для сотрудников. Студентам аккаунт не нужен.|Faqat xodimlar uchun. Talabalarga hisob kerak emas.
+skipContent|الانتقال إلى المحتوى|Перейти к содержимому|Asosiy mazmunga oʻtish
+account|الحساب|Аккаунт|Hisob
+resolvedByMe|ما أنجزته|Решённые мной|Men hal qilganlar
+undoVote|إلغاء التأييد|Отменить подтверждение|Tasdiqni bekor qilish
+reject|رفض|Отклонить|Rad etish
+linkTitle|ربط المتصفح والتطبيق|Связать браузер и приложение|Brauzer va ilovani bogʻlash
+linkHint|يشارك الربط ملفك وبلاغاتك وصلاحية تعديلها. أدخل الرمز في الاتصال الآخر ثم وافق هنا. تُحفظ تفضيلات الملف الذي يبدأ الربط.|Связывание открывает доступ к профилю, заявкам и их редактированию. Введите код в другом подключении и подтвердите здесь. Приоритет у профиля, начавшего связывание.|Bogʻlash profil, xabarlar va ularni tahrirlash huquqini ulashadi. Kodni boshqa ulanishga kiriting va shu yerda tasdiqlang. Bogʻlashni boshlagan profil sozlamalari ustun turadi.
+linkStart|الحصول على رمز الربط|Получить код|Bogʻlash kodini olish
+linkExisting|ربط ملف موجود|Связать с профилем|Mavjud profilga bogʻlash
+linkApprove|الموافقة على الربط|Подтвердить связь|Bogʻlashni tasdiqlash
+linkPending|بانتظار الموافقة|Ожидание подтверждения|Tasdiq kutilmoqda
+linkConfirmed|تم ربط الملفين|Профили связаны|Profillar bogʻlandi
+linkExpired|انتهت صلاحية الرمز أو أُلغي|Код истёк или отменён|Kod muddati tugagan yoki bekor qilingan
+linkCode|رمز الربط|Код связывания|Bogʻlash kodi
+linkedSessions|الاتصالات المرتبطة: {count}|Связанных подключений: {count}|Bogʻlangan ulanishlar: {count}
+recentOwn|بلاغاتك الأخيرة|Ваши последние заявки|Soʻnggi xabarlaringiz
+createdAt|أُنشئ الملف في {date}|Профиль создан: {date}|Profil yaratilgan: {date}
+revoke|إلغاء الوصول|Отозвать доступ|Ruxsatni bekor qilish
+cookieWarning|قد يؤدي حذف ملفات تعريف الارتباط إلى فقدان الوصول لبلاغاتك، إلا إذا بقي اتصال آخر مرتبط.|Удаление cookie может лишить доступа к заявкам, если не осталось другого связанного подключения.|Cookie fayllari oʻchirilsa, boshqa bogʻlangan ulanish boʻlmasa, xabarlaringizga kirish yoʻqolishi mumkin.
+issueGroup|مجموعة المشكلات|Группа проблем|Muammo guruhi
+issueType|نوع المشكلة|Тип проблемы|Muammo turi
+customIssue|صِف العنصر|Опишите объект|Buyumni tasvirlang
+duplicateChecking|جارٍ البحث عن بلاغات مشابهة…|Поиск похожих заявок…|Oʻxshash xabarlar tekshirilmoqda…
+possibleMatch|بلاغ مشابه محتمل|Возможное совпадение|Oʻxshash xabar boʻlishi mumkin
+accept|قبول|Принять|Qabul qilish
+rejectedReason|سبب الرفض|Причина отклонения|Rad etish sababi
+openRequests|بلاغات مفتوحة|Открытые заявки|Ochiq xabarlar
+email|البريد الإلكتروني|Электронная почта|Email
+profilePlatform|الاتصال الحالي: {platform}|Текущее подключение: {platform}|Joriy ulanish: {platform}
+loginRequired|سجّل الدخول إلى مساحة الصيانة|Войдите в кабинет сотрудника|Xodimlar boʻlimiga kiring
+oldest|الأقدم أولًا|Сначала старые|Avval eskilari
+noPermission|ليس لديك إذن لتعديل هذا البلاغ.|У вас нет прав на изменение этой заявки.|Bu xabarni tahrirlashga ruxsatingiz yoʻq.
+same_location|الموقع نفسه|То же место|Bir xil joy
+nearby_location|موقع قريب|Рядом|Yaqin joy
+same_type|نوع المشكلة نفسه|Тот же тип проблемы|Bir xil muammo turi
+similar_description|وصف مشابه|Похожее описание|Oʻxshash tavsif
+accountSubtitle|حرمك الجامعي، وأثرك فيه.|Ваш кампус. Ваш вклад.|Kampusingiz. Hissangiz.
+settingsSubtitle|اجعل CampusFix مناسبًا لك.|Настройте CampusFix под себя.|CampusFix’ni oʻzingizga moslang.
+reportDetailsTitle|تفاصيل البلاغ|Детали заявки|Xabar tafsilotlari
+reportDetailsSubtitle|تابع التقدّم والتحديثات.|Следите за ходом работы.|Jarayon va yangilanishlarni kuzating.
+queueSubtitle|نظّم أعمال الصيانة وتابعها.|Планируйте и отслеживайте ремонт.|Taʼmirlash ishlarini rejalang va kuzating.
+resolvedSubtitle|الأعمال التي أنجزتها.|История выполненных вами работ.|Siz bajargan ishlar tarixi.
+staffAccount|حساب الموظف|Аккаунт сотрудника|Xodim hisobi
+staffAccountSubtitle|عملك وأثرك في الحرم.|Ваша работа на благо кампуса.|Kampus uchun qilgan ishlaringiz.
+shieldAlt|شعار درع Penn State|Щит Penn State|Penn State qalqon belgisi
+profileSupport|بلاغات مرتبطة بهذا الجهاز|Заявки связаны с этим устройством|Xabarlar shu qurilmaga bogʻlangan
+editProfile|تعديل الملف|Изменить профиль|Profilni tahrirlash
+profileEditHint|اختر اسمًا مستعارًا وصورة اختيارية.|Выберите псевдоним и необязательный аватар.|Taxallus va ixtiyoriy avatar tanlang.
+displayName|الاسم الظاهر|Отображаемое имя|Koʻrinadigan ism
+nameHint|اسم مستعار من ٢ إلى ٦٠ حرفًا. لا حاجة لاسمك الحقيقي.|Псевдоним от 2 до 60 символов. Настоящее имя не требуется.|2–60 belgili taxallus. Haqiqiy ismingiz shart emas.
+nameInvalid|استخدم من ٢ إلى ٦٠ حرفًا.|От 2 до 60 символов.|2–60 ta belgi kiriting.
+profileSaved|تم حفظ ملفك.|Профиль сохранён.|Profilingiz saqlandi.
+chooseAvatar|اختيار صورة الملف|Выбрать аватар|Avatar tanlash
+removeAvatar|إزالة صورة الملف|Удалить аватар|Avatarni olib tashlash
+avatarAlt|صورة الملف|Аватар профиля|Profil avatari
+avatarError|اختر صورة JPEG أو PNG أو WebP بحجم حتى ٥ ميغابايت.|Выберите JPEG, PNG или WebP до 5 МБ.|5 MB gacha JPEG, PNG yoki WebP rasmini tanlang.
+recentEmpty|لم ترسل أي بلاغ بعد|У вас пока нет заявок|Hali xabar yubormagansiz
+menu|القائمة|Меню|Menyu
+preferences|التفضيلات|Предпочтения|Afzalliklar
+connections|الاتصالات المرتبطة|Связанные подключения|Bogʻlangan ulanishlar
+currentConnection|هذا الاتصال|Это подключение|Shu ulanish
+linkedConnection|اتصال مرتبط {number}|Связанное подключение {number}|{number}-bogʻlangan ulanish
+statusSort|حسب الحالة|По статусу|Holat boʻyicha
+photoNumber|الصورة {number} من {count}|Фото {number} из {count}|{count} tadan {number}-rasm
+groupRequired|اختر مجموعة المشكلة.|Выберите группу проблемы.|Muammo guruhini tanlang.
+photoLimit|يمكنك إرفاق ٣ صور كحد أقصى.|Можно прикрепить не более 3 изображений.|Koʻpi bilan 3 ta rasm biriktirish mumkin.
+takePhoto|التقاط صورة|Сделать фото|Suratga olish
+updatingResults|جارٍ تحديث البلاغات…|Обновление заявок…|Xabarlar yangilanmoqda…

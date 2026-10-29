@@ -14,23 +14,34 @@
     "db:generate": "prisma generate",
     "db:validate": "prisma validate",
     "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed:locations": "tsx src/seed.ts",
+    "db:seed:demo": "tsx src/seed.ts --demo",
+    "staff:create": "tsx src/staff-cli.ts",
+    "staff:disable": "tsx src/staff-cli.ts --disable",
+    "db:seed:expanded": "tsx src/seed-expanded.ts"
   },
   "dependencies": {
+    "@fastify/cookie": "11.1.5",
+    "@fastify/multipart": "10.1.6",
+    "@fastify/rate-limit": "11.2.1",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "argon2": "^0.45.1",
+    "dotenv": "^17.2.0",
     "fastify": "^5.12.7",
     "fastify-plugin": "^5.1.0",
-    "@prisma/client": "7.10.1",
-    "@prisma/adapter-pg": "7.10.1",
     "pg": "^8.16.3",
-    "dotenv": "^17.2.0",
+    "sharp": "0.35.5",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/pg": "^8.15.0",
     "prisma": "7.10.1",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0",
-    "@types/node": "^24.19.2",
-    "@types/pg": "^8.15.0",
     "vitest": "5.0.4"
   }
 }

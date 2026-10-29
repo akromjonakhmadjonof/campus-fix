@@ -1,0 +1,57 @@
+classroom_furniture|القاعات والأثاث|Аудитории и мебель|Xonalar va mebel
+it_computing|الحواسيب وتقنية المعلومات|Компьютеры и ИТ|Kompyuterlar va IT
+plumbing|السباكة|Сантехника|Santexnika
+electrical_lighting|الكهرباء والإضاءة|Электрика и освещение|Elektr va yoritish
+building_access|المبنى والمداخل|Здание и входы|Bino va kirish joylari
+cleaning_safety|النظافة والسلامة|Уборка и безопасность|Tozalik va xavfsizlik
+grounds_parking|المساحات الخارجية والمواقف|Территория и парковка|Tashqi hudud va avtoturargoh
+other|أخرى|Другое|Boshqa
+Chair|كرسي|Стул|Stul
+Desk|مكتب|Письменный стол|Yozuv stoli
+Table|طاولة|Стол|Stol
+Whiteboard|سبورة|Маркерная доска|Doska
+Podium|منصّة محاضر|Кафедра|Minbar
+Cabinet|خزانة|Шкаф|Shkaf
+Other Furniture|أثاث آخر|Другая мебель|Boshqa mebel
+Computer|حاسوب|Компьютер|Kompyuter
+Monitor|شاشة|Монитор|Monitor
+Keyboard|لوحة مفاتيح|Клавиатура|Klaviatura
+Mouse|فأرة|Мышь|Sichqoncha
+Projector|جهاز عرض|Проектор|Proyektor
+Printer|طابعة|Принтер|Printer
+Network/Wi-Fi Equipment|معدات الشبكة والواي فاي|Сетевое оборудование/Wi-Fi|Tarmoq/Wi-Fi uskunasi
+Charging Station|محطة شحن|Зарядная станция|Quvvatlash nuqtasi
+Pipe|أنبوب|Труба|Quvur
+Faucet|صنبور|Кран|Joʻmrak
+Sink|مغسلة|Раковина|Chigʻanoq
+Toilet|مرحاض|Унитаз|Unitaz
+Urinal|مبولة|Писсуар|Pissuar
+Water Fountain|نافورة شرب|Питьевой фонтанчик|Ichimlik favvorasi
+Drain|مصرف|Слив|Suv oqizgich
+Light Fixture|وحدة إضاءة|Светильник|Chiroq
+Switch|مفتاح كهربائي|Выключатель|Oʻchirgich
+Power Outlet|مقبس كهربائي|Розетка|Rozetka
+Electrical Panel|لوحة كهربائية|Электрощит|Elektr paneli
+Emergency Light|إضاءة طوارئ|Аварийное освещение|Favqulodda yoritish
+Door|باب|Дверь|Eshik
+Lock|قفل|Замок|Qulf
+Window|نافذة|Окно|Deraza
+Elevator|مصعد|Лифт|Lift
+Stairwell|درج|Лестница|Zinapoya
+Ceiling|سقف|Потолок|Shift
+Wall|جدار|Стена|Devor
+Floor Surface|أرضية|Напольное покрытие|Pol qoplamasi
+HVAC/Ventilation|التكييف والتهوية|Климатическая система/вентиляция|Iqlim tizimi/shamollatish
+Spill|انسكاب|Разлитая жидкость|Toʻkilgan suyuqlik
+Trash Bin|سلّة نفايات|Мусорная урна|Chiqindi qutisi
+Cleaning Issue|مشكلة نظافة|Проблема с уборкой|Tozalik muammosi
+Safety Sign|علامة سلامة|Знак безопасности|Xavfsizlik belgisi
+Fire Safety Equipment|معدات مكافحة الحرائق|Противопожарное оборудование|Yongʻin xavfsizligi uskunasi
+Streetlight|إنارة خارجية|Уличный фонарь|Koʻcha chirogʻi
+Sidewalk|رصيف|Тротуар|Yoʻlak
+Parking Surface|سطح موقف السيارات|Покрытие парковки|Avtoturargoh qoplamasi
+Gate|بوابة|Ворота|Darvoza
+Bench|مقعد|Скамейка|Oʻrindiq
+Landscaping|تنسيق الحدائق|Озеленение|Koʻkalamzorlashtirish
+Sports Equipment|معدات رياضية|Спортивное оборудование|Sport jihozlari
+Other / Not Listed|أخرى / غير مدرجة|Другое / нет в списке|Boshqa / roʻyxatda yoʻq

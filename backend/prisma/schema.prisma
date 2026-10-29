@@ -1,0 +1,133 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Project {
+  id          String   @id @default(uuid()) @db.Uuid
+  ownerId     String   @db.VarChar(255)
+  name        String   @db.VarChar(120)
+  slug        String   @db.VarChar(80)
+  description String?  @db.VarChar(2000)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  @@unique([ownerId, slug])
+  @@index([ownerId, createdAt, id])
+}
+
+enum Category {
+  ELECTRICAL
+  PLUMBING
+  FURNITURE
+  IT
+  CLEANING
+  SAFETY
+  OTHER
+}
+
+enum ReportStatus {
+  REPORTED
+  IN_PROGRESS
+  RESOLVED
+}
+
+model Location {
+  id       String @id @db.VarChar(64)
+  name     String @db.VarChar(200)
+  path     String @db.VarChar(1000)
+  parentId String? @db.VarChar(64)
+  parent   Location? @relation("LocationTree", fields: [parentId], references: [id])
+  children Location[] @relation("LocationTree")
+  reports  Report[]
+  @@index([parentId, name])
+}
+
+model GuestSession {
+  id        String @id @default(uuid()) @db.Uuid
+  tokenHash String @unique @db.Char(64)
+  expiresAt DateTime @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  reports   Report[]
+  confirmations Confirmation[]
+  attachments Attachment[]
+  @@index([expiresAt])
+}
+
+model Staff {
+  id           String @id @default(uuid()) @db.Uuid
+  username     String @unique @db.VarChar(80)
+  passwordHash String @db.VarChar(255)
+  displayName  String @db.VarChar(120)
+  sessions     StaffSession[]
+  changes      StatusChange[]
+}
+
+model StaffSession {
+  id        String @id @default(uuid()) @db.Uuid
+  tokenHash String @unique @db.Char(64)
+  expiresAt DateTime @db.Timestamptz(3)
+  staffId   String @db.Uuid
+  staff     Staff @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  @@index([expiresAt])
+}
+
+model Report {
+  id            String @id @default(uuid()) @db.Uuid
+  title         String @db.VarChar(120)
+  description   String @db.VarChar(4000)
+  category      Category
+  locationId    String @db.VarChar(64)
+  exactLocation String @db.VarChar(300)
+  status        ReportStatus @default(REPORTED)
+  guestId       String @db.Uuid
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  location      Location @relation(fields: [locationId], references: [id])
+  guest         GuestSession @relation(fields: [guestId], references: [id])
+  attachments   Attachment[]
+  confirmations Confirmation[]
+  history       StatusChange[]
+  @@index([status, createdAt, id])
+  @@index([category, locationId])
+  @@index([guestId, createdAt])
+}
+
+model Attachment {
+  id        String @id @default(uuid()) @db.Uuid
+  guestId   String @db.Uuid
+  reportId  String? @db.Uuid
+  filename  String @unique @db.VarChar(100)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  guest     GuestSession @relation(fields: [guestId], references: [id])
+  report    Report? @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  @@index([guestId, createdAt])
+  @@index([reportId])
+}
+
+model Confirmation {
+  reportId  String @db.Uuid
+  guestId   String @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  report    Report @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  guest     GuestSession @relation(fields: [guestId], references: [id])
+  @@id([reportId, guestId])
+  @@index([guestId, createdAt])
+}
+
+model StatusChange {
+  id        String @id @default(uuid()) @db.Uuid
+  reportId  String @db.Uuid
+  status    ReportStatus
+  note      String @db.VarChar(500)
+  staffId   String? @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  report    Report @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  staff     Staff? @relation(fields: [staffId], references: [id])
+  @@index([reportId, createdAt, id])
+}

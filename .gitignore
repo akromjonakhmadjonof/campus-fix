@@ -19,3 +19,9 @@ uploads/
 api/src/generated/
 mobile/ios/
 mobile/android/
+
+api/storage/
+.local-postgres/
+codex/screenshots/
+
+.pnpm-store/

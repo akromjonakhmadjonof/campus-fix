@@ -1,9 +1,199 @@
 generator client {
-  provider = "prisma-client"
-  output = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "esm"
 }
+
 datasource db {
   provider = "postgresql"
 }
-// Domain models and migrations will be introduced after product requirements are approved.
+
+enum ReportStatus {
+  REPORTED
+  ACCEPTED
+  IN_PROGRESS
+  RESOLVED
+  REJECTED
+}
+
+model Profile {
+  displayName   String?   @db.VarChar(60)
+  avatarMediaId String?   @db.Uuid
+  avatar        Media?    @relation("profileAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
+  id            String    @id @default(uuid()) @db.Uuid
+  createdAt     DateTime  @default(now())
+  sessions      Session[]
+  reports       Report[]
+  votes         Vote[]
+  media         Media[]
+}
+
+model Session {
+  id          String        @id @default(uuid()) @db.Uuid
+  profileId   String        @db.Uuid
+  profile     Profile       @relation(fields: [profileId], references: [id])
+  tokenHash   String        @unique
+  createdAt   DateTime      @default(now())
+  expiresAt   DateTime
+  revokedAt   DateTime?
+  sourceLinks LinkRequest[] @relation("linkSource")
+  targetLinks LinkRequest[] @relation("linkTarget")
+
+  @@index([profileId, expiresAt], map: "Session_profile_expiry")
+}
+
+model LinkRequest {
+  id              String   @id @default(uuid()) @db.Uuid
+  sourceSessionId String   @db.Uuid
+  targetSessionId String?  @db.Uuid
+  codeHash        String   @unique
+  state           String   @default("open")
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+  sourceSession   Session  @relation("linkSource", fields: [sourceSessionId], references: [id], onDelete: Restrict, onUpdate: NoAction, map: "LinkRequest_source_fkey")
+  targetSession   Session? @relation("linkTarget", fields: [targetSessionId], references: [id], onDelete: Restrict, onUpdate: NoAction, map: "LinkRequest_target_fkey")
+
+  @@index([sourceSessionId, state], map: "LinkRequest_source_state")
+}
+
+model Staff {
+  id           String         @id @default(uuid()) @db.Uuid
+  email        String         @unique
+  displayName  String
+  passwordHash String
+  active       Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  sessions     StaffSession[]
+  events       StatusEvent[]
+  resolved     Report[]
+}
+
+model StaffSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  staffId   String   @db.Uuid
+  staff     Staff    @relation(fields: [staffId], references: [id])
+  tokenHash String   @unique
+  expiresAt DateTime
+}
+
+model Location {
+  id        String     @id @default(uuid()) @db.Uuid
+  sourceKey String     @unique
+  name      String
+  path      String
+  sortOrder Int
+  parentId  String?    @db.Uuid
+  parent    Location?  @relation("tree", fields: [parentId], references: [id])
+  children  Location[] @relation("tree")
+  reports   Report[]
+
+  @@index([parentId, sortOrder])
+}
+
+model IssueGroup {
+  id        String      @id @default(uuid()) @db.Uuid
+  code      String      @unique
+  labelEn   String
+  labelEs   String
+  sortOrder Int
+  types     IssueType[]
+}
+
+model IssueType {
+  id      String     @id @default(uuid()) @db.Uuid
+  code    String     @unique
+  labelEn String
+  labelEs String
+  groupId String     @db.Uuid
+  group   IssueGroup @relation(fields: [groupId], references: [id])
+  reports Report[]
+}
+
+model Report {
+  id              String        @id @default(uuid()) @db.Uuid
+  reference       Int           @unique @default(autoincrement())
+  fixtureKey      String?       @unique
+  idempotencyKey  String        @unique
+  profileId       String        @db.Uuid
+  profile         Profile       @relation(fields: [profileId], references: [id])
+  locationId      String        @db.Uuid
+  location        Location      @relation(fields: [locationId], references: [id])
+  issueTypeId     String        @db.Uuid
+  issueType       IssueType     @relation(fields: [issueTypeId], references: [id])
+  category        String
+  customIssueName String?
+  title           String        @db.VarChar(120)
+  description     String        @db.VarChar(4000)
+  exactLocation   String        @db.VarChar(300)
+  status          ReportStatus  @default(REPORTED)
+  version         Int           @default(1)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+  resolvedById    String?       @db.Uuid
+  resolvedBy      Staff?        @relation(fields: [resolvedById], references: [id])
+  votes           Vote[]
+  history         StatusEvent[]
+  attachments     ReportMedia[]
+
+  @@index([status, createdAt, id])
+  @@index([profileId, createdAt])
+  @@index([locationId, issueTypeId])
+}
+
+model Vote {
+  profileId String   @db.Uuid
+  reportId  String   @db.Uuid
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  report    Report   @relation(fields: [reportId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@id([reportId, profileId])
+}
+
+model StatusEvent {
+  id         String        @id @default(uuid()) @db.Uuid
+  reportId   String        @db.Uuid
+  report     Report        @relation(fields: [reportId], references: [id])
+  status     ReportStatus
+  fromStatus ReportStatus?
+  actorType  String
+  staffId    String?       @db.Uuid
+  staff      Staff?        @relation(fields: [staffId], references: [id])
+  note       String        @db.VarChar(500)
+  createdAt  DateTime      @default(now())
+
+  @@index([reportId, createdAt])
+}
+
+model Media {
+  avatarProfiles Profile[]     @relation("profileAvatar")
+  id             String        @id @default(uuid()) @db.Uuid
+  profileId      String        @db.Uuid
+  profile        Profile       @relation(fields: [profileId], references: [id])
+  storageKey     String        @unique
+  mime           String
+  bytes          Int
+  sha256         String
+  createdAt      DateTime      @default(now())
+  attachments    ReportMedia[]
+}
+
+model ReportMedia {
+  reportId  String @db.Uuid
+  mediaId   String @db.Uuid
+  sortOrder Int
+  report    Report @relation(fields: [reportId], references: [id])
+  media     Media  @relation(fields: [mediaId], references: [id])
+
+  @@id([reportId, mediaId])
+}
+
+model AuditEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  actorType String
+  actorId   String?
+  action    String
+  entityId  String
+  createdAt DateTime @default(now())
+}

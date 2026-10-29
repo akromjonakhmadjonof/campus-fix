@@ -1,3 +1,5 @@
+import { campusRoutes } from "./campus.js";
+import { ZodError } from "zod";
 import Fastify from "fastify";
 import type { Environment } from "./config/env.js";
 import databasePlugin from "./plugins/database.js";
@@ -15,16 +17,23 @@ export function buildApp(environment: Environment) {
   });
   app.setErrorHandler((error, request, reply) => {
     const statusCode =
-      error instanceof Error &&
-      "statusCode" in error &&
-      typeof error.statusCode === "number" &&
-      error.statusCode >= 400 &&
-      error.statusCode <= 599
-        ? error.statusCode
-        : 500;
+      error instanceof ZodError
+        ? 400
+        : error instanceof Error &&
+            "statusCode" in error &&
+            typeof error.statusCode === "number" &&
+            error.statusCode >= 400 &&
+            error.statusCode <= 599
+          ? error.statusCode
+          : 500;
     if (statusCode >= 500) request.log.error({ err: error }, "Request failed");
     reply.code(statusCode).send({
-      code: statusCode >= 500 ? "INTERNAL_ERROR" : "INVALID_REQUEST",
+      code:
+        error instanceof ZodError
+          ? "VALIDATION_ERROR"
+          : statusCode >= 500
+            ? "INTERNAL_ERROR"
+            : "INVALID_REQUEST",
       message:
         statusCode >= 500
           ? "Internal server error"
@@ -35,5 +44,6 @@ export function buildApp(environment: Environment) {
   });
   app.register(databasePlugin, { environment });
   app.register(healthRoutes, { prefix: "/api" });
+  app.register(campusRoutes, { prefix: "/api" });
   return app;
 }

@@ -1,0 +1,82 @@
+{
+  "welcome": ["Welcome", "Bienvenido"],
+  "account": ["Account", "Cuenta"],
+  "accountSubtitle": ["Your campus, your impact.", "Tu campus, tu aporte."],
+  "exploreSubtitle": [
+    "Explore and support campus improvements.",
+    "Ayuda a mejorar nuestro campus."
+  ],
+  "newReport": ["New Report", "Nuevo reporte"],
+  "describe": ["Tell us what needs attention.", "Cuéntanos qué necesita atención."],
+  "settingsSubtitle": ["Make CampusFix yours.", "Haz CampusFix a tu medida."],
+  "reportDetailsTitle": ["Report Details", "Detalles del reporte"],
+  "reportDetailsSubtitle": ["Track progress and updates.", "Sigue el progreso y las novedades."],
+  "queueSubtitle": [
+    "Prioritize and follow maintenance work.",
+    "Organiza y sigue las reparaciones."
+  ],
+  "resolvedSubtitle": ["The work you have completed.", "El trabajo que has completado."],
+  "staffAccount": ["Staff Account", "Cuenta del personal"],
+  "staffAccountSubtitle": ["Your work, your campus impact.", "Tu trabajo mejora el campus."],
+  "shieldAlt": ["Penn State shield", "Escudo de Penn State"],
+  "profileSupport": ["Reports linked to this device", "Reportes vinculados a este dispositivo"],
+  "editProfile": ["Edit profile", "Editar perfil"],
+  "profileEditHint": [
+    "Choose a nickname and an optional avatar.",
+    "Elige un apodo y una imagen opcional."
+  ],
+  "displayName": ["Display name", "Nombre visible"],
+  "nameHint": [
+    "A nickname of 2–60 characters. Your real name is not needed.",
+    "Un apodo de 2–60 caracteres. No necesitas usar tu nombre real."
+  ],
+  "nameInvalid": ["Use 2–60 characters.", "Usa entre 2 y 60 caracteres."],
+  "profileSaved": ["Your profile has been saved.", "Tu perfil se ha guardado."],
+  "chooseAvatar": ["Choose avatar", "Elegir imagen"],
+  "removeAvatar": ["Remove avatar", "Quitar imagen"],
+  "avatarAlt": ["Profile avatar", "Imagen del perfil"],
+  "avatarError": [
+    "Choose a JPEG, PNG or WebP image up to 5 MB.",
+    "Elige una imagen JPEG, PNG o WebP de hasta 5 MB."
+  ],
+  "recentOwn": ["Your recent reports", "Tus reportes recientes"],
+  "recentEmpty": ["No reports from you yet", "Aún no has enviado reportes"],
+  "seeAll": ["See more", "Ver más"],
+  "menu": ["Menu", "Menú"],
+  "preferences": ["Preferences", "Preferencias"],
+  "connections": ["Linked connections", "Conexiones vinculadas"],
+  "currentConnection": ["This connection", "Esta conexión"],
+  "linkedConnection": ["Linked connection {number}", "Conexión vinculada {number}"],
+  "statusSort": ["By status", "Por estado"],
+  "privacy": ["Privacy", "Privacidad"],
+  "locationHint": [
+    "Locations are a reference; describe the precise spot below.",
+    "Los lugares son orientativos; indica el punto exacto abajo."
+  ],
+  "editHint": [
+    "You can edit your report until maintenance accepts it.",
+    "Puedes editar el reporte hasta que mantenimiento lo acepte."
+  ],
+  "privacyText": [
+    "A secure cookie links reports to this browser or app. A nickname and avatar are optional and visible only to your linked profile. No email or student ID is required. Clearing cookies may lose access unless another linked connection remains. Report text and photos are public; avoid personal information. Image metadata is removed on upload.",
+    "Una cookie segura vincula tus reportes a este navegador o aplicación. El apodo y la imagen son opcionales y solo los ve tu perfil vinculado. No se necesita correo ni identificación estudiantil. Al borrar las cookies puedes perder el acceso si no queda otra conexión vinculada. Los textos y fotos de los reportes son públicos; evita datos personales. Las imágenes se procesan para eliminar sus metadatos."
+  ],
+  "linkHint": [
+    "Linking shares your profile, reports and editing access. Enter the code in the other connection, then approve here. The profile that starts linking keeps its preferences.",
+    "La vinculación comparte tu perfil, reportes y permisos de edición. Introduce el código en la otra conexión y aprueba aquí. Se conservan las preferencias del perfil que inicia la vinculación."
+  ],
+  "softwareText": [
+    "Built with Next.js, React, Fastify, Prisma and other open-source libraries. Project manifests list the dependencies. Third-party licenses remain with their authors.",
+    "Creado con Next.js, React, Fastify, Prisma y otras bibliotecas de código abierto. Los archivos del proyecto enumeran las dependencias. Las licencias de terceros pertenecen a sus autores."
+  ],
+  "groupRequired": ["Choose an issue group.", "Elige un grupo de problemas."],
+  "photoRequired": ["Add at least one image.", "Añade al menos una imagen."],
+  "photoLimit": ["You can attach up to 3 images.", "Puedes adjuntar hasta 3 imágenes."],
+  "photo": ["Images", "Imágenes"],
+  "photoHint": [
+    "1–3 images · JPEG, PNG or WebP · up to 5 MB each. Objects only, no people or IDs.",
+    "De 1 a 3 imágenes · JPEG, PNG o WebP · hasta 5 MB cada una. Solo objetos, sin personas ni identificaciones."
+  ],
+  "takePhoto": ["Take a photo", "Tomar una foto"],
+  "updatingResults": ["Updating reports…", "Actualizando reportes…"]
+}

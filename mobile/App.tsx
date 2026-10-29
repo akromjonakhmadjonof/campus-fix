@@ -19,6 +19,39 @@ function Host() {
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadKey, setLoadKey] = useState(0);
+  const [locale, setLocale] = useState<"en" | "es" | "ar" | "ru" | "uz">("en");
+  const copy = {
+    en: {
+      title: "We couldn’t load this. Please try again.",
+      message: "Try again",
+      retry: "Try again",
+      loading: "Loading…",
+    },
+    es: {
+      title: "No pudimos cargar la información. Inténtalo de nuevo.",
+      message: "Reintentar",
+      retry: "Reintentar",
+      loading: "Cargando…",
+    },
+    ar: {
+      title: "تعذّر التحميل. يُرجى المحاولة مجددًا.",
+      message: "إعادة المحاولة",
+      retry: "إعادة المحاولة",
+      loading: "جارٍ التحميل…",
+    },
+    ru: {
+      title: "Не удалось загрузить. Попробуйте ещё раз.",
+      message: "Повторить",
+      retry: "Повторить",
+      loading: "Загрузка…",
+    },
+    uz: {
+      title: "Yuklab boʻlmadi. Qayta urinib koʻring.",
+      message: "Qayta urinish",
+      retry: "Qayta urinish",
+      loading: "Yuklanmoqda…",
+    },
+  }[locale];
   const platform = Platform.OS === "ios" ? "ios" : "android";
   const origin = new URL(webUrl).origin;
   const sendPlatform = () => webview.current?.injectJavaScript(platformScript(platform));
@@ -45,10 +78,8 @@ function Host() {
     <SafeAreaView style={styles.container} edges={["top", "bottom", "left", "right"]}>
       {failed ? (
         <View style={styles.center} accessibilityRole="alert">
-          <Text style={styles.title}>Unable to connect</Text>
-          <Text style={styles.message}>
-            Check that the web server is running and this device can reach {webUrl}.
-          </Text>
+          <Text style={styles.title}>{copy.title}</Text>
+          <Text style={styles.message}>{copy.message}</Text>
           <Pressable
             accessibilityRole="button"
             style={styles.retry}
@@ -59,7 +90,7 @@ function Host() {
               setLoadKey((value) => value + 1);
             }}
           >
-            <Text style={styles.retryText}>Retry</Text>
+            <Text style={styles.retryText}>{copy.retry}</Text>
           </Pressable>
         </View>
       ) : (
@@ -84,6 +115,19 @@ function Host() {
             }}
             onNavigationStateChange={(state) => {
               canGoBack.current = state.canGoBack;
+              try {
+                const next = new URL(state.url).pathname.split("/")[1];
+                if (
+                  next === "en" ||
+                  next === "es" ||
+                  next === "ar" ||
+                  next === "ru" ||
+                  next === "uz"
+                )
+                  setLocale(next);
+              } catch {
+                // Ignore transient platform URLs while the WebView navigates.
+              }
             }}
             onLoadStart={() => setLoading(true)}
             onLoadEnd={() => {
@@ -120,10 +164,10 @@ function Host() {
             <View
               style={styles.loading}
               accessibilityRole="progressbar"
-              accessibilityLabel="Loading CampusFix"
+              accessibilityLabel={copy.loading}
             >
               <ActivityIndicator size="large" />
-              <Text>Loading CampusFix…</Text>
+              <Text>{copy.loading}</Text>
             </View>
           )}
         </>
@@ -134,7 +178,13 @@ function Host() {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <Host />
+      {/^https?:\/\//.test(webUrl) ? (
+        <Host />
+      ) : (
+        <View style={styles.center}>
+          <Text>Set EXPO_PUBLIC_WEB_URL to your CampusFix server URL.</Text>
+        </View>
+      )}
     </SafeAreaProvider>
   );
 }

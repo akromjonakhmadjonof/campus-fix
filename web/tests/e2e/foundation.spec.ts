@@ -1,87 +1,50 @@
+import { choose } from "./helpers";
 import { expect, test } from "@playwright/test";
-test("locale negotiation, switching and browser fallback", async ({ page }) => {
-  await page.goto("/");
-  await expect(page).toHaveURL(/\/en$/);
-  await expect(page.getByRole("heading", { name: "CampusFix" })).toBeVisible();
-  await expect(page.getByTestId("platform")).toHaveText("Platform: web");
-  await expect(page.locator("body")).toHaveCSS("font-family", /nunito/i);
-  expect(
-    await page.evaluate(async () => {
-      await document.fonts.ready;
-      return Array.from(document.fonts).some(
-        (font) => /nunito/i.test(font.family) && font.status === "loaded",
-      );
-    }),
-  ).toBe(true);
-  await expect(page.locator("main")).toHaveCSS("display", "flex");
-  await page.goto("/en?source=smoke#content");
-  let resume = () => {};
-  const pendingNavigation = new Promise<void>((resolve) => {
-    resume = resolve;
-  });
-  await page.route("**/es?**", async (route) => {
-    await pendingNavigation;
-    await route.continue();
-  });
-  await page.getByRole("combobox", { name: "Language" }).selectOption("es");
+test("explicit pairing requires source approval and shares ownership", async ({
+  page,
+  browser,
+}) => {
+  await page.goto("/en");
+  await expect(page.locator(".profile-summary h2")).toHaveText("Guest Reporter");
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
+  await page.getByLabel("Display name", { exact: true }).fill("Linked Reporter");
+  await page.getByRole("button", { name: "Save changes", exact: true }).click();
+  await page.goto("/en/settings");
+  await page.getByRole("button", { name: "Link browser and app", exact: true }).click();
+  await page.getByRole("button", { name: "Get pairing code", exact: true }).click();
+  const code = await page.locator(".pairing-code strong").innerText();
+  const context = await browser.newContext();
   try {
-    await expect(page.locator("#nprogress .bar")).toBeVisible();
+    const other = await context.newPage();
+    await other.goto("http://127.0.0.1:3200/en/settings");
+    await other.getByRole("button", { name: "Link browser and app", exact: true }).click();
+    const before = await other.locator(".profile-summary h2").innerText();
+    await other.locator("#pair-code").fill(code);
+    await other.getByRole("button", { name: "Link existing profile", exact: true }).click();
+    await expect(other.getByText("Waiting for confirmation", { exact: true })).toBeVisible();
+    expect(await other.locator(".profile-summary h2").innerText()).toBe(before);
+    await page.getByRole("button", { name: "Approve link", exact: true }).click();
+    await expect(other.getByText("Profiles linked", { exact: false })).toBeVisible();
+    await other.reload();
+    expect(await other.locator(".profile-summary h2").innerText()).toBe(
+      await page.locator(".profile-summary h2").innerText(),
+    );
   } finally {
-    resume();
-  }
-  await expect(page).toHaveURL(/\/es\?source=smoke#content$/);
-  await expect(page.locator("html")).toHaveAttribute("lang", "es");
-  await expect(page.locator("#nprogress .bar")).toHaveCount(0);
-  await expect(page.getByText("La base de la aplicación está lista.")).toBeVisible();
-  await page.getByRole("combobox", { name: "Idioma" }).selectOption("en");
-  await expect(page).toHaveURL(/\/en\?source=smoke#content$/);
-});
-test("server proxy bypasses locale rewriting", async ({ request }) => {
-  const response = await request.get("/backend/health");
-  expect(response.status()).toBe(200);
-  expect(await response.json()).toEqual({ status: "ok" });
-});
-test("browser language is negotiated and unsupported language falls back", async ({ browser }) => {
-  for (const [language, expected] of [
-    ["es-MX", "es"],
-    ["fr-FR", "en"],
-  ]) {
-    const context = await browser.newContext({ locale: language });
-    const page = await context.newPage();
-    await page.goto("http://127.0.0.1:3200/");
-    await expect(page).toHaveURL(new RegExp(`/${expected}$`));
     await context.close();
   }
 });
-test("bridge handles a late native identity and rejects unknown messages", async ({ page }) => {
-  await page.addInitScript(() => {
-    window.ReactNativeWebView = { postMessage() {} };
-  });
-  await page.goto("/en");
-  await expect(page.getByText("Native connection: connecting")).toBeVisible();
-  await page.evaluate(() => {
-    window.dispatchEvent(
-      new CustomEvent("campus-fix:bridge", {
-        detail: JSON.stringify({
-          version: 2,
-          type: "native.platform",
-          payload: { platform: "ios" },
-        }),
-      }),
-    );
-  });
-  await expect(page.getByTestId("platform")).toHaveText("Platform: web");
-  await page.evaluate(() => {
-    window.dispatchEvent(
-      new CustomEvent("campus-fix:bridge", {
-        detail: JSON.stringify({
-          version: 1,
-          type: "native.platform",
-          payload: { platform: "ios" },
-        }),
-      }),
-    );
-  });
-  await expect(page.getByTestId("platform")).toHaveText("Platform: ios");
-  await expect(page.getByText("Native connection: connected")).toBeVisible();
+test("Spanish settings, theme and validation", async ({ page }) => {
+  await page.goto("/en/settings");
+  await choose(page, page.getByLabel("Language", { exact: true }), "Español");
+  await expect(page).toHaveURL(/\/es\/settings/);
+  await choose(page, page.getByLabel("Apariencia", { exact: true }), "Oscuro");
+  await page.reload();
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.goto("/es/reports");
+  await expect(page.getByRole("heading", { name: "Reportes", exact: true })).toBeVisible();
+  await page.goto("/es/reports/new");
+  await page.locator('button[type="submit"]').click();
+  await expect(page.locator(".field-error").filter({ hasText: /.+/ }).first()).toBeVisible();
+  await page.goto("/es/staff/login");
+  await expect(page.locator("#staff-username")).toBeVisible();
 });

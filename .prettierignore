@@ -9,5 +9,23 @@ test-results/
 pnpm-lock.yaml
 prompt.md
 api/src/generated/
+backend/src/generated/
+backend/.test-build/
 mobile/ios/
 mobile/android/
+
+.local-postgres/
+.pnpm-store/
+api/storage/
+codex/screenshots/
+
+# Owner-provided source data must remain byte-for-byte unchanged.
+seed.json
+
+# Preserve supplied briefs and official registry snapshots as source evidence.
+codex/REFINEMENT_BRIEF.md
+codex/shadcn-dialog-source.json
+codex/shadcn-select-source.json
+
+codex/UPDATE_04_BRIEF.md
+codex/UPDATE_05_BRIEF.md

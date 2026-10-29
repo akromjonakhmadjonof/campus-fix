@@ -7,7 +7,8 @@ export const environmentSchema = z.object({
   DATABASE_URL: z
     .url()
     .refine(
-      (value) => ["postgres:", "postgresql:"].includes(new URL(value).protocol),
+      (value) =>
+        URL.canParse(value) && ["postgres:", "postgresql:"].includes(new URL(value).protocol),
       "Use a PostgreSQL connection URL",
     )
     .optional(),

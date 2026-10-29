@@ -1,0 +1,44 @@
+{
+  "verifiedAt": "2026-10-29T04:21:51.410Z",
+  "database": "campus_fix_demo",
+  "before": 9,
+  "after": 25,
+  "firstRun": {
+    "inserted": 16,
+    "unchanged": 0,
+    "total": 16
+  },
+  "secondRun": {
+    "inserted": 0,
+    "unchanged": 16,
+    "total": 16
+  },
+  "existingReportsPreserved": true,
+  "repeatUnchanged": true,
+  "catalogUnchanged": true,
+  "existingReportsHash": "49bee6c060e5fcb52163ff7134d53bb2f80f2d08b1eb9fdcb96fc22f520a380a",
+  "catalogHash": "a2797bdd8ef42cc7190869f70e4c97c3f4a1f68cf6b756b65d1db91852210f2b",
+  "seedSourceSha256": "af05d0a9e559c6d9e95d1d8c9cc9fadd0d75c9e8eff55ef2084a431586820f51",
+  "fixtureStatuses": [
+    {
+      "_count": 5,
+      "status": "REPORTED"
+    },
+    {
+      "_count": 4,
+      "status": "ACCEPTED"
+    },
+    {
+      "_count": 3,
+      "status": "IN_PROGRESS"
+    },
+    {
+      "_count": 3,
+      "status": "RESOLVED"
+    },
+    {
+      "_count": 1,
+      "status": "REJECTED"
+    }
+  ]
+}

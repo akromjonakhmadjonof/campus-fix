@@ -8,6 +8,9 @@
     "pnpm": ">=11.17.0 <12"
   },
   "scripts": {
+    "dev:backend": "pnpm --filter @campus-fix/backend dev",
+    "dev:nest": "pnpm --parallel --filter @campus-fix/web --filter @campus-fix/backend dev",
+    "test:backend": "pnpm --filter @campus-fix/backend test",
     "dev": "pnpm --parallel --filter @campus-fix/web --filter @campus-fix/api dev",
     "dev:web": "pnpm --filter @campus-fix/web dev",
     "dev:api": "pnpm --filter @campus-fix/api dev",
@@ -32,7 +35,15 @@
     "mobile:emulator": "node scripts/mobile.mjs emulator",
     "mobile:forward": "node scripts/mobile.mjs forward",
     "mobile:doctor": "node scripts/mobile.mjs doctor",
-    "dev:phone": "pnpm --filter @campus-fix/mobile start:phone"
+    "dev:phone": "pnpm --filter @campus-fix/mobile start:phone",
+    "dev:legacy": "pnpm --filter @campus-fix/api dev",
+    "db:deploy": "pnpm --filter @campus-fix/api db:deploy",
+    "db:seed": "pnpm db:seed:locations",
+    "db:seed:locations": "pnpm --filter @campus-fix/api db:seed:locations",
+    "db:seed:demo": "pnpm --filter @campus-fix/api db:seed:demo",
+    "staff:create": "pnpm --filter @campus-fix/api staff:create",
+    "staff:disable": "pnpm --filter @campus-fix/api staff:disable",
+    "db:seed:expanded": "pnpm --filter @campus-fix/api db:seed:expanded"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",

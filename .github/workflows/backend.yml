@@ -1,0 +1,95 @@
+name: Backend
+on:
+  pull_request:
+    paths:
+      [
+        "backend/**",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "package.json",
+        ".github/workflows/backend.yml",
+      ]
+  push:
+    branches: [master, main]
+    paths:
+      [
+        "backend/**",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "package.json",
+        ".github/workflows/backend.yml",
+      ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Disposable runner only; these credentials never leave the CI network.
+      NODE_ENV: test
+      DATABASE_URL: postgresql://campus_app:ci-app@127.0.0.1:5433/campus_fix_test
+      MIGRATION_DATABASE_URL: postgresql://campus_migrate:ci-migrate@127.0.0.1:5433/campus_fix_test
+      POSTGRES_PASSWORD: ci-bootstrap
+      MIGRATION_PASSWORD: ci-migrate
+      APP_DB_PASSWORD: ci-app
+      TEST_POSTGRES_PASSWORD: ci-bootstrap
+      TEST_MIGRATION_PASSWORD: ci-migrate
+      TEST_APP_DB_PASSWORD: ci-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.17.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+          cache: pnpm
+      - name: Locked dependency installation (runner only)
+        run: pnpm --filter @campus-fix/backend --filter campus-fix install --frozen-lockfile --ignore-scripts
+      - name: Start isolated PostgreSQL
+        working-directory: backend
+        run: docker compose --profile test up -d --wait postgres-test
+      - name: Validate schema and apply committed migrations
+        run: |
+          pnpm --filter @campus-fix/backend rebuild @prisma/engines
+          pnpm --filter @campus-fix/backend db:validate
+          pnpm --filter @campus-fix/backend db:generate
+          pnpm --filter @campus-fix/backend db:deploy
+          pnpm --filter @campus-fix/backend db:status
+      - name: Format, lint, typecheck, unit and PostgreSQL integration tests
+        run: |
+          pnpm --filter @campus-fix/backend format:check
+          pnpm --filter @campus-fix/backend lint
+          pnpm --filter @campus-fix/backend typecheck
+          pnpm --filter @campus-fix/backend test
+          pnpm --filter @campus-fix/backend test:integration
+          pnpm --filter @campus-fix/backend build
+      - name: Build release and runtime images
+        run: |
+          docker build -f backend/Dockerfile --target migrate -t campus-backend-migrate .
+          docker build -f backend/Dockerfile --target runtime -t campus-backend .
+      - name: Smoke-test non-root production image with database unavailable
+        run: |
+          docker run -d --name backend-smoke -p 127.0.0.1:4000:4000 \
+            -e NODE_ENV=production -e DB_SSL=true \
+            -e DATABASE_URL=postgresql://campus_app:unused@127.0.0.1:1/campus_fix_test \
+            -e OIDC_ISSUER=https://identity.example.invalid/ \
+            -e OIDC_AUDIENCE=campus-api -e OIDC_JWKS_URI=https://identity.example.invalid/jwks \
+            -e CORS_ORIGINS=https://campus.example.invalid campus-backend
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4000/health/live; then break; fi
+            sleep 1
+          done
+          curl --fail http://127.0.0.1:4000/health/live
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:4000/health/ready)" = 503
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:4000/api/v1/projects)" = 401
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:4000/docs)" = 404
+          test "$(docker exec backend-smoke id -u)" != 0
+          docker stop --time 15 backend-smoke
+          test "$(docker inspect --format '{{.State.ExitCode}}' backend-smoke)" != 137
+      - name: Stop test services (retain volume; runner is disposable)
+        if: always()
+        working-directory: backend
+        run: docker compose --profile test down

@@ -1,0 +1,1411 @@
+[
+  {
+    "name": "Sutherland Building",
+    "children": [
+      {
+        "name": "Ground Floor",
+        "children": [
+          {
+            "name": "Room S008 — Multimedia Learning Space",
+            "children": []
+          },
+          {
+            "name": "Room S009 — Auditorium",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 102 — Global Engagement",
+            "children": []
+          },
+          {
+            "name": "Room 119",
+            "children": []
+          },
+          {
+            "name": "Room 119S",
+            "children": []
+          },
+          {
+            "name": "Room 122 — Career and Professional Development Suite",
+            "children": []
+          },
+          {
+            "name": "Room 123 — Parking and Transportation",
+            "children": []
+          },
+          {
+            "name": "Room 125",
+            "children": []
+          },
+          {
+            "name": "Student Lounge",
+            "children": []
+          },
+          {
+            "name": "Room 101",
+            "children": []
+          },
+          {
+            "name": "Room 106",
+            "children": []
+          },
+          {
+            "name": "Room 115",
+            "children": []
+          },
+          {
+            "name": "Room 119A",
+            "children": []
+          },
+          {
+            "name": "Room 119B",
+            "children": []
+          },
+          {
+            "name": "Room 119C",
+            "children": []
+          },
+          {
+            "name": "Room 119D",
+            "children": []
+          },
+          {
+            "name": "Room 122B",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Second Floor",
+        "children": [
+          {
+            "name": "Room 201",
+            "children": []
+          },
+          {
+            "name": "Room 204",
+            "children": []
+          },
+          {
+            "name": "Room 206",
+            "children": []
+          },
+          {
+            "name": "Room 208",
+            "children": []
+          },
+          {
+            "name": "Room 209",
+            "children": []
+          },
+          {
+            "name": "Room 210",
+            "children": []
+          },
+          {
+            "name": "Room 211",
+            "children": []
+          },
+          {
+            "name": "Room 213",
+            "children": []
+          },
+          {
+            "name": "Room 215",
+            "children": []
+          },
+          {
+            "name": "Room 216",
+            "children": []
+          },
+          {
+            "name": "Room 217",
+            "children": []
+          },
+          {
+            "name": "Room 218 — IT Help Desk",
+            "children": []
+          },
+          {
+            "name": "Room 221",
+            "children": []
+          },
+          {
+            "name": "Room 222",
+            "children": []
+          },
+          {
+            "name": "Room 223",
+            "children": []
+          },
+          {
+            "name": "Room 224 — Digital Learning Space",
+            "children": []
+          },
+          {
+            "name": "Room 224A",
+            "children": []
+          },
+          {
+            "name": "Room 226",
+            "children": []
+          },
+          {
+            "name": "Room 227",
+            "children": []
+          },
+          {
+            "name": "Room 219",
+            "children": []
+          },
+          {
+            "name": "Room 220",
+            "children": []
+          },
+          {
+            "name": "Room 224B",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Third Floor",
+        "children": [
+          {
+            "name": "Room 305",
+            "children": []
+          },
+          {
+            "name": "Room 306",
+            "children": []
+          },
+          {
+            "name": "Room 307 — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 308",
+            "children": []
+          },
+          {
+            "name": "Room 309",
+            "children": []
+          },
+          {
+            "name": "Room 311",
+            "children": []
+          },
+          {
+            "name": "Room 315 — Chaiken Center for Student Success",
+            "children": []
+          },
+          {
+            "name": "Room 317A",
+            "children": []
+          },
+          {
+            "name": "Room 320",
+            "children": []
+          },
+          {
+            "name": "Room 324",
+            "children": []
+          },
+          {
+            "name": "Room 330",
+            "children": []
+          },
+          {
+            "name": "Room 331",
+            "children": []
+          },
+          {
+            "name": "Alcove near Room 331 — Privacy Pod",
+            "children": []
+          },
+          {
+            "name": "Room 301",
+            "children": []
+          },
+          {
+            "name": "Room 303",
+            "children": []
+          },
+          {
+            "name": "Room 305A",
+            "children": []
+          },
+          {
+            "name": "Room 310A",
+            "children": []
+          },
+          {
+            "name": "Room 313",
+            "children": []
+          },
+          {
+            "name": "Room 329",
+            "children": []
+          },
+          {
+            "name": "Room 333",
+            "children": []
+          },
+          {
+            "name": "Room 334",
+            "children": []
+          },
+          {
+            "name": "Room 335",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Fourth Floor",
+        "children": [
+          {
+            "name": "Room 403",
+            "children": []
+          },
+          {
+            "name": "Room 404",
+            "children": []
+          },
+          {
+            "name": "Room 406",
+            "children": []
+          },
+          {
+            "name": "Room 417",
+            "children": []
+          },
+          {
+            "name": "Room 409",
+            "children": []
+          },
+          {
+            "name": "Room 410",
+            "children": []
+          },
+          {
+            "name": "Room 411",
+            "children": []
+          },
+          {
+            "name": "Room 412",
+            "children": []
+          },
+          {
+            "name": "Room 415",
+            "children": []
+          },
+          {
+            "name": "Room 418",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Solarium",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Lares Building",
+    "children": [
+      {
+        "name": "Ground Floor",
+        "children": [
+          {
+            "name": "Room G04 — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "The Intersection — Student Lounge",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 102A",
+            "children": []
+          },
+          {
+            "name": "Room 102B",
+            "children": []
+          },
+          {
+            "name": "Room 103 — Health and Wellness Center",
+            "children": []
+          },
+          {
+            "name": "Room 115",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Second Floor",
+        "children": [
+          {
+            "name": "Room 201",
+            "children": []
+          },
+          {
+            "name": "Room 203 — Student Care and Advocacy",
+            "children": []
+          },
+          {
+            "name": "Room 204 — Disability Resources",
+            "children": []
+          },
+          {
+            "name": "Room 208",
+            "children": []
+          },
+          {
+            "name": "Room 209",
+            "children": []
+          },
+          {
+            "name": "Room 210",
+            "children": []
+          },
+          {
+            "name": "Room 211",
+            "children": []
+          },
+          {
+            "name": "Room 206",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Banquet Room",
+        "children": []
+      },
+      {
+        "name": "Lubert Commons",
+        "children": []
+      },
+      {
+        "name": "Lares Café / Cafeteria",
+        "children": []
+      },
+      {
+        "name": "BOND Center",
+        "children": []
+      },
+      {
+        "name": "Bookstore",
+        "children": []
+      },
+      {
+        "name": "Lobby / Information Desk",
+        "children": []
+      },
+      {
+        "name": "Privacy Pods near Banquet Room",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Rydal Building",
+    "children": [
+      {
+        "name": "Ground Floor",
+        "children": [
+          {
+            "name": "Room 001",
+            "children": []
+          },
+          {
+            "name": "Room 002",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 101 — Classroom",
+            "children": []
+          },
+          {
+            "name": "Room 106 — Police and Public Safety",
+            "children": []
+          },
+          {
+            "name": "Meditation / Interfaith Prayer Space",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Second Floor",
+        "children": [
+          {
+            "name": "Room 202",
+            "children": []
+          },
+          {
+            "name": "Room 217",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Woodland Building",
+    "children": [
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 112 — Auditorium",
+            "children": []
+          },
+          {
+            "name": "Room 119 — Physics Lab",
+            "children": []
+          },
+          {
+            "name": "Room 121 — Flexible Learning Space",
+            "children": []
+          },
+          {
+            "name": "Room 124 — Physics Lab",
+            "children": []
+          },
+          {
+            "name": "Room 132A — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 132B — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 133A — Drawing / Painting Studio",
+            "children": []
+          },
+          {
+            "name": "Room 133B — Electrical Engineering Lab",
+            "children": []
+          },
+          {
+            "name": "Room 135 — Engineering / 3D Printing Lab",
+            "children": []
+          },
+          {
+            "name": "Room 136A — Ceramics Studio",
+            "children": []
+          },
+          {
+            "name": "Room 136B — Sculpture Studio",
+            "children": []
+          },
+          {
+            "name": "Privacy Pod near Library",
+            "children": []
+          },
+          {
+            "name": "Library",
+            "children": [
+              {
+                "name": "Library Entrance / Lobby",
+                "children": []
+              },
+              {
+                "name": "Library Computer Area",
+                "children": []
+              },
+              {
+                "name": "Abington Oasis — Study Area",
+                "children": []
+              },
+              {
+                "name": "newMedia Mac Studio",
+                "children": []
+              },
+              {
+                "name": "Room 103",
+                "children": []
+              },
+              {
+                "name": "Room 108",
+                "children": []
+              },
+              {
+                "name": "Room 108A",
+                "children": []
+              },
+              {
+                "name": "Library Room 3",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Second Floor",
+        "children": [
+          {
+            "name": "Room 202",
+            "children": []
+          },
+          {
+            "name": "Room 214",
+            "children": []
+          },
+          {
+            "name": "Room 219 — Student Success Services",
+            "children": []
+          },
+          {
+            "name": "Room 220",
+            "children": []
+          },
+          {
+            "name": "Room 222 — Chemistry Lab",
+            "children": []
+          },
+          {
+            "name": "Room 224 — Chemistry Lab",
+            "children": []
+          },
+          {
+            "name": "Room 230",
+            "children": []
+          },
+          {
+            "name": "Room 236G",
+            "children": []
+          },
+          {
+            "name": "Room 237",
+            "children": []
+          },
+          {
+            "name": "Room 242 — Biology Lab",
+            "children": []
+          },
+          {
+            "name": "Room 246 — Biology Lab",
+            "children": []
+          },
+          {
+            "name": "Second-Floor Atrium / IT Help Desk",
+            "children": []
+          },
+          {
+            "name": "Room 226",
+            "children": []
+          },
+          {
+            "name": "Room 228",
+            "children": []
+          },
+          {
+            "name": "Room 239A",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Third Floor",
+        "children": [
+          {
+            "name": "Room 313",
+            "children": []
+          },
+          {
+            "name": "Room 317",
+            "children": []
+          },
+          {
+            "name": "Room 319",
+            "children": []
+          },
+          {
+            "name": "Room 321 — Chemistry Lab",
+            "children": []
+          },
+          {
+            "name": "Room 336",
+            "children": []
+          },
+          {
+            "name": "Room 340 — Music Studio",
+            "children": []
+          },
+          {
+            "name": "Room 341 — Mac Lab",
+            "children": []
+          },
+          {
+            "name": "Room 342 — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 343 — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 345 — Computer / Multimedia Learning Space",
+            "children": []
+          },
+          {
+            "name": "Room 346 — Computer / Multimedia Learning Space",
+            "children": []
+          },
+          {
+            "name": "Room 347 — IT Support",
+            "children": []
+          },
+          {
+            "name": "Privacy Pods near Elevator",
+            "children": []
+          },
+          {
+            "name": "Room 315",
+            "children": []
+          },
+          {
+            "name": "Room 316",
+            "children": []
+          },
+          {
+            "name": "Room 330",
+            "children": []
+          },
+          {
+            "name": "Room 339",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Fourth Floor",
+        "children": []
+      },
+      {
+        "name": "Woodland Commons",
+        "children": []
+      },
+      {
+        "name": "Art Gallery",
+        "children": []
+      },
+      {
+        "name": "Woodland Café",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Hillcrest Building",
+    "children": []
+  },
+  {
+    "name": "Cloverly Building",
+    "children": [
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 102",
+            "children": []
+          },
+          {
+            "name": "Room 103",
+            "children": []
+          },
+          {
+            "name": "Room 106",
+            "children": []
+          },
+          {
+            "name": "Room 107",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Athletic Building",
+    "children": [
+      {
+        "name": "Gymnasium",
+        "children": [
+          {
+            "name": "Gym Floor",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Weight Room",
+        "children": []
+      },
+      {
+        "name": "Cardio Room",
+        "children": []
+      },
+      {
+        "name": "Training Room",
+        "children": []
+      },
+      {
+        "name": "Locker Rooms",
+        "children": []
+      },
+      {
+        "name": "Mezzanine",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Lions Gate",
+    "children": [
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Front Desk / Reception",
+            "children": []
+          },
+          {
+            "name": "Lobby",
+            "children": []
+          },
+          {
+            "name": "Mail Room",
+            "children": []
+          },
+          {
+            "name": "Multipurpose Room",
+            "children": []
+          },
+          {
+            "name": "Knowledge Station",
+            "children": []
+          },
+          {
+            "name": "Study Pod / Lounge",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Floor 2",
+        "children": [
+          {
+            "name": "Knowledge Station",
+            "children": []
+          },
+          {
+            "name": "Study Pod / Lounge",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Floor 3",
+        "children": [
+          {
+            "name": "Knowledge Station",
+            "children": []
+          },
+          {
+            "name": "Study Pod / Lounge",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Floor 4",
+        "children": [
+          {
+            "name": "Knowledge Station",
+            "children": []
+          },
+          {
+            "name": "Study Pod / Lounge",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Floor 5",
+        "children": [
+          {
+            "name": "Knowledge Station",
+            "children": []
+          },
+          {
+            "name": "Study Pod / Lounge",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Seminar Learning Spaces",
+        "children": []
+      },
+      {
+        "name": "Recreation Lounge — Pool / Ping Pong",
+        "children": []
+      },
+      {
+        "name": "Laundry Facility",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Spring House",
+    "children": [
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 100 — Flexible Classroom",
+            "children": []
+          },
+          {
+            "name": "Room 101 — Multipurpose Classroom",
+            "children": []
+          },
+          {
+            "name": "Room 102 — Collegiate Recovery Program",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Information Kiosk | Visitors Parking",
+    "children": [
+      {
+        "name": "Information Kiosk",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Parking Structure",
+    "children": []
+  },
+  {
+    "name": "Art Storage",
+    "children": []
+  },
+  {
+    "name": "Conference Center",
+    "children": [
+      {
+        "name": "Room 001 — Classroom",
+        "children": []
+      },
+      {
+        "name": "Room 102 — Classroom",
+        "children": []
+      },
+      {
+        "name": "Global Programs Office",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Garage",
+    "children": []
+  },
+  {
+    "name": "Athletic Field",
+    "children": []
+  },
+  {
+    "name": "Tennis Courts",
+    "children": []
+  },
+  {
+    "name": "1665 Cloverly Lane",
+    "children": []
+  },
+  {
+    "name": "1681 Cloverly Lane",
+    "children": []
+  },
+  {
+    "name": "Lion Shrine",
+    "children": []
+  },
+  {
+    "name": "Memorial Field",
+    "children": [
+      {
+        "name": "Turf Field",
+        "children": []
+      },
+      {
+        "name": "Track",
+        "children": []
+      },
+      {
+        "name": "Field House",
+        "children": []
+      },
+      {
+        "name": "Softball Field",
+        "children": []
+      },
+      {
+        "name": "Practice Field",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Penn State @611",
+    "children": [
+      {
+        "name": "General-Purpose Learning Space",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Lot A",
+    "children": []
+  },
+  {
+    "name": "Lot B",
+    "children": []
+  },
+  {
+    "name": "Lot C",
+    "children": []
+  },
+  {
+    "name": "Lot D",
+    "children": []
+  },
+  {
+    "name": "Lot E",
+    "children": []
+  },
+  {
+    "name": "Lot F",
+    "children": []
+  },
+  {
+    "name": "Lot G",
+    "children": []
+  },
+  {
+    "name": "Lot H",
+    "children": []
+  },
+  {
+    "name": "Lot I",
+    "children": []
+  },
+  {
+    "name": "Lot J",
+    "children": []
+  },
+  {
+    "name": "Lot K",
+    "children": []
+  },
+  {
+    "name": "Lot L",
+    "children": []
+  },
+  {
+    "name": "Lot M",
+    "children": []
+  },
+  {
+    "name": "Lot N",
+    "children": []
+  },
+  {
+    "name": "Academic Building",
+    "children": [
+      {
+        "name": "First Floor",
+        "children": [
+          {
+            "name": "Room 101 — Fabrication Classroom (Dirty)",
+            "children": []
+          },
+          {
+            "name": "Room 102 — Fabrication Classroom (Clean)",
+            "children": []
+          },
+          {
+            "name": "Room 103 — Media Lab",
+            "children": []
+          },
+          {
+            "name": "Room 114 — Design Commons",
+            "children": []
+          },
+          {
+            "name": "Room 118 — Engineering Lab",
+            "children": []
+          },
+          {
+            "name": "Room 125 — VR Lab",
+            "children": []
+          },
+          {
+            "name": "Room 126 — Fabrication Commons",
+            "children": []
+          },
+          {
+            "name": "Room 110 — Sculpture Studio",
+            "children": []
+          },
+          {
+            "name": "Room 112 — Ceramics Studio",
+            "children": []
+          },
+          {
+            "name": "Outdoor Kiln",
+            "children": []
+          },
+          {
+            "name": "Vestibule",
+            "children": []
+          },
+          {
+            "name": "Room 120",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Second Floor",
+        "children": [
+          {
+            "name": "Room 201 — Gallery",
+            "children": []
+          },
+          {
+            "name": "Room 202 — Classroom",
+            "children": []
+          },
+          {
+            "name": "Room 204",
+            "children": []
+          },
+          {
+            "name": "Room 205",
+            "children": []
+          },
+          {
+            "name": "Room 206",
+            "children": []
+          },
+          {
+            "name": "Room 208",
+            "children": []
+          },
+          {
+            "name": "Room 209",
+            "children": []
+          },
+          {
+            "name": "Room 210 — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 211",
+            "children": []
+          },
+          {
+            "name": "Room 213 — PSS / VR Lab",
+            "children": []
+          },
+          {
+            "name": "Room 214 — Commons",
+            "children": []
+          },
+          {
+            "name": "Room 216 — Workroom",
+            "children": []
+          },
+          {
+            "name": "Room 216A — Collaboration",
+            "children": []
+          },
+          {
+            "name": "Room 228 — Conference",
+            "children": []
+          },
+          {
+            "name": "Room 228A — Collaboration",
+            "children": []
+          },
+          {
+            "name": "Room 243 — Admissions / Financial Aid",
+            "children": []
+          },
+          {
+            "name": "IT Help Desk",
+            "children": []
+          },
+          {
+            "name": "Registrar",
+            "children": []
+          },
+          {
+            "name": "Micro-Mart",
+            "children": []
+          },
+          {
+            "name": "Terrace Y201",
+            "children": []
+          },
+          {
+            "name": "Room 217",
+            "children": []
+          },
+          {
+            "name": "Room 219",
+            "children": []
+          },
+          {
+            "name": "Room 232",
+            "children": []
+          },
+          {
+            "name": "Room 234",
+            "children": []
+          },
+          {
+            "name": "Room 239",
+            "children": []
+          },
+          {
+            "name": "Room 244",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Third Floor",
+        "children": [
+          {
+            "name": "Room 302",
+            "children": []
+          },
+          {
+            "name": "Room 304",
+            "children": []
+          },
+          {
+            "name": "Room 305",
+            "children": []
+          },
+          {
+            "name": "Room 306",
+            "children": []
+          },
+          {
+            "name": "Room 308",
+            "children": []
+          },
+          {
+            "name": "Room 309 — Computer Lab",
+            "children": []
+          },
+          {
+            "name": "Room 312",
+            "children": []
+          },
+          {
+            "name": "Room 303 — Teaching Education Prep Lab",
+            "children": []
+          },
+          {
+            "name": "Room 310 — Seminar Room",
+            "children": []
+          },
+          {
+            "name": "Room 313 — Commons",
+            "children": []
+          },
+          {
+            "name": "Room 314 — Workroom",
+            "children": []
+          },
+          {
+            "name": "Room 314A — Collaboration",
+            "children": []
+          },
+          {
+            "name": "Room 326 — Conference",
+            "children": []
+          },
+          {
+            "name": "Room 326A — Collaboration",
+            "children": []
+          },
+          {
+            "name": "Room 338 — Collaboration Suite",
+            "children": []
+          },
+          {
+            "name": "Room 315",
+            "children": []
+          },
+          {
+            "name": "Room 317",
+            "children": []
+          },
+          {
+            "name": "Room 319",
+            "children": []
+          },
+          {
+            "name": "Room 321",
+            "children": []
+          },
+          {
+            "name": "Room 322",
+            "children": []
+          },
+          {
+            "name": "Room 325",
+            "children": []
+          },
+          {
+            "name": "Room 327",
+            "children": []
+          },
+          {
+            "name": "Room 336",
+            "children": []
+          },
+          {
+            "name": "Room 339",
+            "children": []
+          },
+          {
+            "name": "Room 340",
+            "children": []
+          },
+          {
+            "name": "Room 341",
+            "children": []
+          },
+          {
+            "name": "Room 345",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "MakerSpace (floor not publicly specified)",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Rydal Executive Plaza",
+    "children": [
+      {
+        "name": "Third Floor",
+        "children": [
+          {
+            "name": "Room 305",
+            "children": []
+          },
+          {
+            "name": "Room 315",
+            "children": []
+          },
+          {
+            "name": "Robotics Lab",
+            "children": []
+          },
+          {
+            "name": "Makerspace",
+            "children": []
+          },
+          {
+            "name": "Room 302",
+            "children": []
+          },
+          {
+            "name": "Room 309",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lions Gate Parking Lot",
+    "children": []
+  },
+  {
+    "name": "Rydal Executive Plaza Parking Lot",
+    "children": []
+  },
+  {
+    "name": "Memorial Field Parking Lot",
+    "children": []
+  },
+  {
+    "name": "Athletic Building Parking Lot",
+    "children": []
+  },
+  {
+    "name": "Duck Pond",
+    "children": []
+  },
+  {
+    "name": "Amphitheater",
+    "children": []
+  },
+  {
+    "name": "Lares Patio",
+    "children": []
+  },
+  {
+    "name": "Sutherland Stairs",
+    "children": []
+  },
+  {
+    "name": "Woodland Stairs",
+    "children": []
+  },
+  {
+    "name": "Cardiac Hill",
+    "children": []
+  }
+]
