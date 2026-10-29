@@ -55,8 +55,14 @@ export function reportReturnPath(value: string | null, staff = false) {
   const fallback = staff ? "/staff/requests" : "/reports";
   if (!value) return fallback;
   const path = value.split("?")[0];
-  return ["/reports", "/staff/requests", "/staff/resolved", "/issues"].includes(path) &&
-    !/[\r\n#]/.test(value)
+  return [
+    "/reports",
+    "/staff/requests",
+    "/staff/resolved",
+    "/staff/dashboard",
+    "/notifications",
+    "/issues",
+  ].includes(path) && !/[\r\n#]/.test(value)
     ? value
     : fallback;
 }

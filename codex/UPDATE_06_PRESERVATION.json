@@ -1,0 +1,36 @@
+{
+  "database": "campus_fix_demo",
+  "migration": "20261031000000_notifications_analytics",
+  "existingDataPreserved": true,
+  "comparedTables": [
+    "Report",
+    "Staff",
+    "Location",
+    "Vote",
+    "StatusEvent (excluding new actorDisplayName)",
+    "AuditEvent"
+  ],
+  "before": {
+    "audit": "56c34ce0aaf958b0b1303e84c484c778",
+    "staff": "2e33cd6e1f1e70863ac207adb0365ad5",
+    "votes": "fd012ca34ed2b71239f10f055293cf45",
+    "events": "b7349b72e8668d06062a414cba5f2482",
+    "reports": "94ebe3a9edaae65976bb851751ac4529",
+    "locations": "a499384639739cc1c125a1d61dfaafdb",
+    "eventCount": 52,
+    "reportCount": 25,
+    "locationCount": 281
+  },
+  "after": {
+    "audit": "56c34ce0aaf958b0b1303e84c484c778",
+    "staff": "2e33cd6e1f1e70863ac207adb0365ad5",
+    "votes": "fd012ca34ed2b71239f10f055293cf45",
+    "events": "b7349b72e8668d06062a414cba5f2482",
+    "reports": "94ebe3a9edaae65976bb851751ac4529",
+    "locations": "a499384639739cc1c125a1d61dfaafdb",
+    "eventCount": 52,
+    "reportCount": 25,
+    "locationCount": 281
+  },
+  "seedSha256": "AF05D0A9E559C6D9E95D1D8C9CC9FADD0D75C9E8EFF55EF2084A431586820F51"
+}

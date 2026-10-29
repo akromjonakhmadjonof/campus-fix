@@ -17,15 +17,18 @@ enum ReportStatus {
 }
 
 model Profile {
-  displayName   String?   @db.VarChar(60)
-  avatarMediaId String?   @db.Uuid
-  avatar        Media?    @relation("profileAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
-  id            String    @id @default(uuid()) @db.Uuid
-  createdAt     DateTime  @default(now())
-  sessions      Session[]
-  reports       Report[]
-  votes         Vote[]
-  media         Media[]
+  displayName        String?        @db.VarChar(60)
+  avatarMediaId      String?        @db.Uuid
+  avatar             Media?         @relation("profileAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
+  id                 String         @id @default(uuid()) @db.Uuid
+  createdAt          DateTime       @default(now())
+  sessions           Session[]
+  reports            Report[]
+  votes              Vote[]
+  media              Media[]
+  notifications      Notification[] @relation("notificationRecipient")
+  actedNotifications Notification[] @relation("notificationReporter")
+  voteEvents         VoteEvent[]
 }
 
 model Session {
@@ -57,15 +60,16 @@ model LinkRequest {
 }
 
 model Staff {
-  id           String         @id @default(uuid()) @db.Uuid
-  email        String         @unique
-  displayName  String
-  passwordHash String
-  active       Boolean        @default(true)
-  createdAt    DateTime       @default(now())
-  sessions     StaffSession[]
-  events       StatusEvent[]
-  resolved     Report[]
+  id            String         @id @default(uuid()) @db.Uuid
+  email         String         @unique
+  displayName   String
+  passwordHash  String
+  active        Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  sessions      StaffSession[]
+  events        StatusEvent[]
+  resolved      Report[]
+  notifications Notification[]
 }
 
 model StaffSession {
@@ -110,35 +114,39 @@ model IssueType {
 }
 
 model Report {
-  id              String        @id @default(uuid()) @db.Uuid
-  reference       Int           @unique @default(autoincrement())
-  fixtureKey      String?       @unique
-  idempotencyKey  String        @unique
-  profileId       String        @db.Uuid
-  profile         Profile       @relation(fields: [profileId], references: [id])
-  locationId      String        @db.Uuid
-  location        Location      @relation(fields: [locationId], references: [id])
-  issueTypeId     String        @db.Uuid
-  issueType       IssueType     @relation(fields: [issueTypeId], references: [id])
+  id              String         @id @default(uuid()) @db.Uuid
+  reference       Int            @unique @default(autoincrement())
+  fixtureKey      String?        @unique
+  idempotencyKey  String         @unique
+  profileId       String         @db.Uuid
+  profile         Profile        @relation(fields: [profileId], references: [id])
+  locationId      String         @db.Uuid
+  location        Location       @relation(fields: [locationId], references: [id])
+  issueTypeId     String         @db.Uuid
+  issueType       IssueType      @relation(fields: [issueTypeId], references: [id])
   category        String
   customIssueName String?
-  title           String        @db.VarChar(120)
-  description     String        @db.VarChar(4000)
-  exactLocation   String        @db.VarChar(300)
-  status          ReportStatus  @default(REPORTED)
-  version         Int           @default(1)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  title           String         @db.VarChar(120)
+  description     String         @db.VarChar(4000)
+  exactLocation   String         @db.VarChar(300)
+  status          ReportStatus   @default(REPORTED)
+  version         Int            @default(1)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   deletedAt       DateTime?
-  resolvedById    String?       @db.Uuid
-  resolvedBy      Staff?        @relation(fields: [resolvedById], references: [id])
+  resolvedById    String?        @db.Uuid
+  resolvedBy      Staff?         @relation(fields: [resolvedById], references: [id])
   votes           Vote[]
   history         StatusEvent[]
   attachments     ReportMedia[]
+  notifications   Notification[]
+  voteEvents      VoteEvent[]
 
   @@index([status, createdAt, id])
   @@index([profileId, createdAt])
   @@index([locationId, issueTypeId])
+  @@index([createdAt])
+  @@index([resolvedById, status])
 }
 
 model Vote {
@@ -152,18 +160,23 @@ model Vote {
 }
 
 model StatusEvent {
-  id         String        @id @default(uuid()) @db.Uuid
-  reportId   String        @db.Uuid
-  report     Report        @relation(fields: [reportId], references: [id])
-  status     ReportStatus
-  fromStatus ReportStatus?
-  actorType  String
-  staffId    String?       @db.Uuid
-  staff      Staff?        @relation(fields: [staffId], references: [id])
-  note       String        @db.VarChar(500)
-  createdAt  DateTime      @default(now())
+  id               String        @id @default(uuid()) @db.Uuid
+  reportId         String        @db.Uuid
+  report           Report        @relation(fields: [reportId], references: [id])
+  status           ReportStatus
+  fromStatus       ReportStatus?
+  actorType        String
+  actorDisplayName String?       @db.VarChar(120)
+  staffId          String?       @db.Uuid
+  staff            Staff?        @relation(fields: [staffId], references: [id])
+  note             String        @db.VarChar(500)
+  createdAt        DateTime      @default(now())
+
+  notification Notification?
 
   @@index([reportId, createdAt])
+  @@index([status, createdAt])
+  @@index([staffId, status])
 }
 
 model Media {
@@ -196,4 +209,56 @@ model AuditEvent {
   action    String
   entityId  String
   createdAt DateTime @default(now())
+}
+
+enum NotificationType {
+  UPVOTE
+  ACCEPTED
+  IN_PROGRESS
+  RESOLVED
+  REJECTED
+}
+
+enum NotificationActorKind {
+  REPORTER
+  STAFF
+}
+
+model VoteEvent {
+  id           String        @id @default(uuid()) @db.Uuid
+  reportId     String        @db.Uuid
+  report       Report        @relation(fields: [reportId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profileId    String        @db.Uuid
+  profile      Profile       @relation(fields: [profileId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createdAt    DateTime      @default(now())
+  notification Notification?
+
+  @@index([createdAt])
+  @@index([reportId])
+}
+
+model Notification {
+  id               String                @id @default(uuid()) @db.Uuid
+  recipientId      String                @db.Uuid
+  recipient        Profile               @relation("notificationRecipient", fields: [recipientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  actorKind        NotificationActorKind
+  actorProfileId   String?               @db.Uuid
+  actorProfile     Profile?              @relation("notificationReporter", fields: [actorProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  actorStaffId     String?               @db.Uuid
+  actorStaff       Staff?                @relation(fields: [actorStaffId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  actorDisplayName String?               @db.VarChar(120)
+  type             NotificationType
+  reportId         String                @db.Uuid
+  report           Report                @relation(fields: [reportId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  reportTitle      String                @db.VarChar(120)
+  statusEventId    String?               @unique @db.Uuid
+  statusEvent      StatusEvent?          @relation(fields: [statusEventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  voteEventId      String?               @unique @db.Uuid
+  voteEvent        VoteEvent?            @relation(fields: [voteEventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  note             String?               @db.VarChar(500)
+  createdAt        DateTime              @default(now())
+  readAt           DateTime?
+
+  @@index([recipientId, createdAt, id])
+  @@index([recipientId, readAt])
 }

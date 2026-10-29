@@ -294,12 +294,19 @@ export async function seedExpandedDemo(db: PrismaClient, staffEmail: string) {
                   createdAt: new Date(createdAt.getTime() + (i + 1) * 60000),
                 })),
               },
+              voteEvents: {
+                create: voterIds.map((id, i) => ({
+                  profileId: id,
+                  createdAt: new Date(createdAt.getTime() + (i + 1) * 60000),
+                })),
+              },
               history: {
                 create: stages.map((stage, i) => ({
                   status: stage,
                   fromStatus: i ? stages[i - 1] : null,
                   actorType: i ? "staff" : "system",
                   staffId: i ? worker.id : null,
+                  actorDisplayName: i ? worker.displayName.slice(0, 120) : null,
                   createdAt: new Date(createdAt.getTime() + i * 7200000),
                   note:
                     stage === "REJECTED"

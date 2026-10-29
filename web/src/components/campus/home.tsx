@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavigationLink as Link } from "@/components/navigation-link";
+import { NotificationPreview } from "./notifications";
 import { ProfileCard } from "./profile";
 import { campus, type LinkState } from "@/lib/campus-api";
 import {
@@ -136,6 +137,7 @@ export function HomeScreen() {
       ) : (
         <ProfileCard profile={me.data} />
       )}
+      <NotificationPreview />
       <section className="account-recent">
         <SectionHeader title={t("recentOwn")} href="/reports?scope=mine" />
         {reports.isPending ? (

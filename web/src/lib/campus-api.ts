@@ -52,7 +52,14 @@ export interface Report {
   resolvedAt: string | null;
   location: Location;
   photos: Photo[];
-  history: { id: string; status: Status; note: string; createdAt: string }[];
+  history: {
+    id: string;
+    status: Status;
+    note: string;
+    createdAt: string;
+    actorType: string;
+    actorDisplayName: string | null;
+  }[];
   confirmationCount: number;
   isMine: boolean;
   confirmed: boolean;

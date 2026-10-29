@@ -60,7 +60,9 @@ export function StaffAccess({ children }: { children: ReactNode }) {
 }
 const protectedQuery = (query: Query) =>
   query.queryKey[0] === "campus" &&
-  (["staff-overview", "staff-reports", "staff-resolved"].includes(String(query.queryKey[1])) ||
+  (["staff-overview", "staff-reports", "staff-resolved", "staff-analytics"].includes(
+    String(query.queryKey[1]),
+  ) ||
     (query.queryKey[1] === "report" && query.queryKey[3] === true));
 export async function clearStaffData(client: QueryClient) {
   await client.cancelQueries({ predicate: protectedQuery });

@@ -27,6 +27,8 @@ export function updateReportCache(client: QueryClient, report: Report) {
   void client.invalidateQueries({
     predicate: (query) =>
       query.queryKey[0] === "campus" &&
-      [...lists, "staff-overview", "summary"].includes(String(query.queryKey[1])),
+      [...lists, "staff-overview", "staff-analytics", "notifications", "summary"].includes(
+        String(query.queryKey[1]),
+      ),
   });
 }

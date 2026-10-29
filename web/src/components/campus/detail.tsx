@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, CheckCircle2, Clock3, MapPin, Pencil, Wrench } from "lucide-react";
+import { ApiError } from "@/lib/api/client";
 import { toast } from "sonner";
 import { campus, type Report, type Status } from "@/lib/campus-api";
 import { useTaxonomyLabel } from "./taxonomy-label";
@@ -49,7 +50,12 @@ function StaffAction({ report }: { report: Report }) {
       updateReportCache(client, updated);
       toast.success(t("statusUpdated"));
     },
-    onError: feedback,
+    onError: (error) => {
+      if (error instanceof ApiError && error.status === 409) {
+        void client.invalidateQueries({ queryKey: ["campus", "report", report.id] });
+        toast.error(t("staffConflict"));
+      } else feedback(error);
+    },
   });
   if (report.status === "RESOLVED" || report.status === "REJECTED") return null;
   return (
@@ -290,6 +296,11 @@ export function ReportDetail({
                   .filter((h) => h.status === "REJECTED")
                   .map((event) => (
                     <time key={event.id} dateTime={event.createdAt}>
+                      {event.actorDisplayName && (
+                        <span className="timeline-actor">
+                          {t("actionBy", { name: event.actorDisplayName })}
+                        </span>
+                      )}
                       {format.dateTime(new Date(event.createdAt), {
                         dateStyle: "medium",
                         timeStyle: "short",
@@ -328,6 +339,11 @@ export function ReportDetail({
                                 timeStyle: "short",
                               })}
                             </small>
+                            {change.actorDisplayName && (
+                              <p className="timeline-actor">
+                                {t("actionBy", { name: change.actorDisplayName })}
+                              </p>
+                            )}
                             {change.note && <p>{change.note}</p>}
                           </>
                         )}

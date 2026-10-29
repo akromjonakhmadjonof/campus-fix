@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  AppState,
   BackHandler,
   Linking,
   Platform,
@@ -54,7 +55,23 @@ function Host() {
   }[locale];
   const platform = Platform.OS === "ios" ? "ios" : "android";
   const origin = new URL(webUrl).origin;
-  const sendPlatform = () => webview.current?.injectJavaScript(platformScript(platform));
+  const sendVisibility = useCallback(
+    (active: boolean) =>
+      webview.current?.injectJavaScript(
+        `window.dispatchEvent(new CustomEvent('campus-visibility', {detail:{active:${active}}})); true;`,
+      ),
+    [],
+  );
+  const sendPlatform = () => {
+    webview.current?.injectJavaScript(platformScript(platform));
+    sendVisibility(AppState.currentState === "active");
+  };
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (state) =>
+      sendVisibility(state === "active"),
+    );
+    return () => subscription.remove();
+  }, [sendVisibility]);
   useEffect(() => {
     if (Platform.OS !== "android") return;
     const subscription = BackHandler.addEventListener("hardwareBackPress", () => {

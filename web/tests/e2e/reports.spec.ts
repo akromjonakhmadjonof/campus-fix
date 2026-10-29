@@ -80,9 +80,9 @@ test("complete creator, duplicate, ownership and staff journey", async ({
     await staffNav
       .getByRole("link")
       .evaluateAll((links) => links.map((link) => link.getAttribute("href"))),
-  ).toEqual(["/en/staff", "/en/staff/requests", "/en/staff/resolved", "/en/staff/settings"]);
-  await staffNav.getByRole("link", { name: "My Work", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "My Work", exact: true })).toBeVisible();
+  ).toEqual(["/en/staff", "/en/staff/requests", "/en/staff/dashboard", "/en/staff/settings"]);
+  await staffNav.getByRole("link", { name: "Dashboard", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Dashboard", exact: true })).toBeVisible();
   await expect(staffNav.getByRole("link").first()).toHaveAttribute("href", "/en/staff");
   await staffNav.getByRole("link", { name: "Requests", exact: true }).click();
   await expect(

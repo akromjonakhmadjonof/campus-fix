@@ -39,3 +39,9 @@ The new user-supplied visual reference is preserved at `codex/assets/refinement-
 - Select and Dialog: official [shadcn Select](https://ui.shadcn.com/docs/components/radix/select) and [Dialog](https://ui.shadcn.com/docs/components/radix/dialog) registry source, adapted to the existing Radix package, logical spacing, localized close labels and project tokens. Registry snapshots are retained in `codex/shadcn-*-source.json`. Their code is MIT licensed under the shadcn/ui project.
 
 The existing generated fictional report images are reused for test fixtures. No new image generation was used for this refinement. Screenshots and verification boundaries are documented in `codex/REFINEMENT_ACCEPTANCE.md`.
+
+## Update 06 charts
+
+The staff dashboard uses Recharts 3.8.0 and the official shadcn/ui New York v4 chart component. Source: https://ui.shadcn.com/r/styles/new-york-v4/chart.json; documentation: https://ui.shadcn.com/docs/components/chart. The registry response is retained in `codex/shadcn-chart-source.json`; `web/src/components/ui/chart.tsx` uses the existing `cn` helper import. The retained shadcn MIT license applies. Existing palette tokens, Nunito, Lucide icons, rounded surfaces and four-icon navigation remain in use.
+
+Update 06 browser screenshots are in ignored `codex/screenshots/update06`. They cover notifications and analytics at 375 × 812, 390 × 844, 430 × 932 and 1440 × 900, with English light and Arabic dark themes, plus all five dashboard translations. See the Update 06 acceptance report for the reviewed files and test boundaries.

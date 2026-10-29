@@ -161,6 +161,7 @@ try {
                 fromStatus: index ? stages[index - 1] : null,
                 actorType: index ? "staff" : "system",
                 staffId: index ? worker.id : null,
+                actorDisplayName: index ? worker.displayName.slice(0, 120) : null,
                 note: index
                   ? "Fictional maintenance step inspected and recorded."
                   : "Fictional demonstration fixture",
@@ -178,10 +179,13 @@ try {
         create: { id: "00000000-0000-4000-8000-" + String(200 + i).padStart(12, "0") },
         update: {},
       });
-      await db.vote.upsert({
-        where: { reportId_profileId: { reportId: votedReport.id, profileId: voter.id } },
-        create: { reportId: votedReport.id, profileId: voter.id },
-        update: {},
+      await db.$transaction(async (tx) => {
+        const vote = await tx.vote.createMany({
+          data: { reportId: votedReport.id, profileId: voter.id },
+          skipDuplicates: true,
+        });
+        if (vote.count)
+          await tx.voteEvent.create({ data: { reportId: votedReport.id, profileId: voter.id } });
       });
     }
     console.log(

@@ -1,3 +1,5 @@
+import { getAnalytics, type AnalyticsDays } from "./analytics.js";
+import { serializable } from "./transactions.js";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import cookie from "@fastify/cookie";
 import multipart from "@fastify/multipart";
@@ -36,6 +38,7 @@ const include = {
       fromStatus: true,
       note: true,
       actorType: true,
+      actorDisplayName: true,
       createdAt: true,
     },
     orderBy: [{ createdAt: "asc" }, { id: "asc" }],
@@ -595,27 +598,130 @@ export async function campusRoutes(app: FastifyInstance) {
     if (await staff(req, false)) fail(403, "STAFF_VOTE_READ_ONLY");
     const current = await session(req),
       id = uuid.parse((req.params as { id: string }).id);
-    await db().$transaction(
-      async (tx) => {
-        const report = await tx.report.findUnique({ where: { id } });
-        if (!report) fail(404, "REPORT_NOT_FOUND");
-        if (report.profileId === current.profileId) fail(403, "SELF_VOTE");
-        if (remove)
-          await tx.vote.deleteMany({ where: { reportId: id, profileId: current.profileId } });
-        else
-          await tx.vote.createMany({
-            data: { reportId: id, profileId: current.profileId },
-            skipDuplicates: true,
+    await serializable(db(), async (tx) => {
+      const active = await tx.session.findUniqueOrThrow({ where: { id: current.id } });
+      const report = await tx.report.findFirst({ where: { id, deletedAt: null } });
+      if (!report) fail(404, "REPORT_NOT_FOUND");
+      if (report.profileId === active.profileId) fail(403, "SELF_VOTE");
+      if (remove) {
+        await tx.vote.deleteMany({ where: { reportId: id, profileId: active.profileId } });
+      } else {
+        const inserted = await tx.vote.createMany({
+          data: { reportId: id, profileId: active.profileId },
+          skipDuplicates: true,
+        });
+        if (inserted.count) {
+          const actor = await tx.profile.findUniqueOrThrow({ where: { id: active.profileId } });
+          const event = await tx.voteEvent.create({
+            data: { reportId: id, profileId: active.profileId },
           });
-      },
-      { isolationLevel: "Serializable" },
-    );
+          await tx.notification.create({
+            data: {
+              recipientId: report.profileId,
+              actorKind: "REPORTER",
+              actorProfileId: active.profileId,
+              actorDisplayName: actor.displayName,
+              type: "UPVOTE",
+              reportId: id,
+              reportTitle: report.title,
+              voteEventId: event.id,
+            },
+          });
+        }
+      }
+    });
     return getReport(id, current.profileId);
   }
   app.post("/reports/:id/vote", { config: { rateLimit: { max: 40, timeWindow: 60000 } } }, (req) =>
     vote(req),
   );
   app.delete("/reports/:id/vote", (req) => vote(req, true));
+  const inboxQuery = z
+    .object({
+      limit: z.coerce.number().int().min(1).max(50).default(20),
+      before: z.iso.datetime().optional(),
+      cursor: uuid.optional(),
+    })
+    .strict()
+    .refine((value) => !!value.before === !!value.cursor);
+  const notificationSelect = {
+    id: true,
+    type: true,
+    actorKind: true,
+    actorDisplayName: true,
+    reportId: true,
+    reportTitle: true,
+    createdAt: true,
+    readAt: true,
+    note: true,
+  } satisfies Prisma.NotificationSelect;
+  app.get("/notifications", async (req) => {
+    const current = await session(req),
+      query = inboxQuery.parse(req.query);
+    const rows = await db().notification.findMany({
+      where: {
+        recipientId: current.profileId,
+        report: { deletedAt: null },
+        ...(query.before && query.cursor
+          ? {
+              OR: [
+                { createdAt: { lt: new Date(query.before) } },
+                { createdAt: new Date(query.before), id: { lt: query.cursor } },
+              ],
+            }
+          : {}),
+      },
+      select: notificationSelect,
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      take: query.limit + 1,
+    });
+    const data = rows.slice(0, query.limit),
+      last = data.at(-1);
+    return {
+      data,
+      nextCursor:
+        rows.length > query.limit && last ? { before: last.createdAt, cursor: last.id } : null,
+    };
+  });
+  app.get("/notifications/unread-count", async (req) => {
+    const current = await session(req);
+    return {
+      asOf: new Date().toISOString(),
+      count: await db().notification.count({
+        where: { recipientId: current.profileId, readAt: null, report: { deletedAt: null } },
+      }),
+    };
+  });
+  app.patch("/notifications/read-all", async (req) => {
+    const current = await session(req);
+    const input = z
+      .object({ through: z.iso.datetime().optional() })
+      .strict()
+      .parse(req.body ?? {});
+    const changed = await db().notification.updateMany({
+      where: {
+        recipientId: current.profileId,
+        readAt: null,
+        createdAt: { lte: input.through ? new Date(input.through) : new Date() },
+      },
+      data: { readAt: new Date() },
+    });
+    return { count: changed.count };
+  });
+  app.patch("/notifications/:id/read", async (req) => {
+    const current = await session(req),
+      id = uuid.parse((req.params as { id: string }).id);
+    await db().notification.updateMany({
+      where: { id, recipientId: current.profileId, readAt: null },
+      data: { readAt: new Date() },
+    });
+    const row = await db().notification.findFirst({
+      where: { id, recipientId: current.profileId },
+      select: notificationSelect,
+    });
+    if (!row) fail(404, "NOTIFICATION_NOT_FOUND");
+    return row;
+  });
   app.post("/media", { config: { rateLimit: { max: 15, timeWindow: 60000 } } }, async (req) => {
     const current = await session(req),
       part = await req.file();
@@ -832,6 +938,7 @@ export async function campusRoutes(app: FastifyInstance) {
             where: { profileId: a, reportId: { in: ownReports.map((r) => r.id) } },
           });
           await tx.media.updateMany({ where: { profileId: b }, data: { profileId: a } });
+          await tx.notification.updateMany({ where: { recipientId: b }, data: { recipientId: a } });
           await tx.session.updateMany({ where: { profileId: b }, data: { profileId: a } });
         }
         const claimed = await tx.linkRequest.updateMany({
@@ -934,6 +1041,20 @@ export async function campusRoutes(app: FastifyInstance) {
       recent: recent.map((r) => present(r)),
     };
   });
+  app.get("/staff/analytics", async (req) => {
+    await staff(req);
+    const { days } = z
+      .object({
+        days: z.coerce
+          .number()
+          .int()
+          .refine((value) => [7, 30, 90].includes(value))
+          .default(30),
+      })
+      .strict()
+      .parse(req.query);
+    return getAnalytics(db(), days as AnalyticsDays);
+  });
   app.get("/staff/requests", (req) => list(req, "queue"));
   app.get("/staff/resolved", (req) => list(req, "resolved"));
   app.get("/staff/requests/:id", async (req) => {
@@ -963,9 +1084,10 @@ export async function campusRoutes(app: FastifyInstance) {
       })
       .strict()
       .parse(req.body);
-    await db().$transaction(async (tx) => {
-      const report = await tx.report.findUnique({ where: { id } });
+    await serializable(db(), async (tx) => {
+      const report = await tx.report.findFirst({ where: { id, deletedAt: null } });
       if (!report) fail(404, "REPORT_NOT_FOUND");
+      if (report.version !== input.version) fail(409, "STALE_REPORT");
       if (!(transitions[report.status] ?? []).includes(input.status))
         fail(409, "INVALID_TRANSITION");
       const result = await tx.report.updateMany({
@@ -977,16 +1099,31 @@ export async function campusRoutes(app: FastifyInstance) {
         },
       });
       if (result.count !== 1) fail(409, "STALE_REPORT");
-      await tx.statusEvent.create({
+      const event = await tx.statusEvent.create({
         data: {
           reportId: id,
           fromStatus: report.status,
           status: input.status,
           actorType: "staff",
           staffId: worker.id,
+          actorDisplayName: worker.displayName.slice(0, 120),
           note: input.note,
         },
       });
+      if (input.status !== "REPORTED")
+        await tx.notification.create({
+          data: {
+            recipientId: report.profileId,
+            actorKind: "STAFF",
+            actorStaffId: worker.id,
+            actorDisplayName: worker.displayName.slice(0, 120),
+            type: input.status,
+            reportId: id,
+            reportTitle: report.title,
+            statusEventId: event.id,
+            note: input.status === "REJECTED" ? input.note : null,
+          },
+        });
       await tx.auditEvent.create({
         data: {
           actorType: "staff",

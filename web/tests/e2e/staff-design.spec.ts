@@ -3,7 +3,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { mkdir, readFile } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
-import { choose } from "./helpers";
+import { choose, withLoginRateLimit } from "./helpers";
 import en from "../../src/messages/en.json";
 import es from "../../src/messages/es.json";
 import ar from "../../src/messages/ar.json";
@@ -19,7 +19,15 @@ async function login(page: Page, locale = "en") {
   const messages = { en, es, ar, ru, uz }[locale as "en"];
   await page.locator("#staff-username").fill(credentials.username);
   await page.locator("#staff-password").fill(credentials.password);
-  await page.getByRole("button", { name: messages.app.signIn, exact: true }).click();
+  const response = await withLoginRateLimit(async () => {
+    const pending = page.waitForResponse(
+      (response) =>
+        response.url().endsWith("/backend/staff/login") && response.request().method() === "POST",
+    );
+    await page.getByRole("button", { name: messages.app.signIn, exact: true }).click();
+    return pending;
+  });
+  expect(response.status()).toBe(200);
 }
 async function createReport(page: Page) {
   await page.request.post(base + "/anonymous/session", { headers });
@@ -116,7 +124,7 @@ test("staff login, personal workspace, settings and logout preserve reporter ide
     await nav
       .getByRole("link")
       .evaluateAll((links) => links.map((link) => link.getAttribute("aria-label"))),
-  ).toEqual([en.app.account, en.app.staffRequests, en.app.myWork, en.app.settings]);
+  ).toEqual([en.app.account, en.app.staffRequests, en.app.dashboard, en.app.settings]);
   await nav.getByRole("link", { name: en.app.account, exact: true }).click();
   const staff = await (await page.request.get(base + "/staff/me")).json();
   await expect(page.locator(".profile-summary h2")).toHaveText(staff.displayName);
@@ -129,9 +137,9 @@ test("staff login, personal workspace, settings and logout preserve reporter ide
       "datetime",
       staff.recent[0].resolvedAt,
     );
-  await nav.getByRole("link", { name: en.app.myWork, exact: true }).click();
+  await page.locator(".staff-metric").first().click();
   await expect(page.getByRole("heading", { name: en.app.myWork, exact: true })).toBeVisible();
-  await expect(nav.getByRole("link", { name: en.app.myWork, exact: true })).toHaveAttribute(
+  await expect(nav.getByRole("link", { name: en.app.account, exact: true })).toHaveAttribute(
     "aria-current",
     "page",
   );
