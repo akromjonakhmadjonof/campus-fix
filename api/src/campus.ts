@@ -1041,7 +1041,7 @@ export async function campusRoutes(app: FastifyInstance) {
       recent: recent.map((r) => present(r)),
     };
   });
-  app.get("/staff/analytics", async (req) => {
+  app.get("/staff/analytics", async (req, reply) => {
     await staff(req);
     const { days } = z
       .object({
@@ -1053,6 +1053,7 @@ export async function campusRoutes(app: FastifyInstance) {
       })
       .strict()
       .parse(req.query);
+    reply.header("Cache-Control", "private, no-store");
     return getAnalytics(db(), days as AnalyticsDays);
   });
   app.get("/staff/requests", (req) => list(req, "queue"));

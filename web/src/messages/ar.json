@@ -359,7 +359,7 @@
     "dashboardSubtitle": "مؤشرات الصيانة على مستوى الحرم الجامعي.",
     "reportingPeriod": "فترة التقرير",
     "lastDays": "آخر {count} يومًا",
-    "analyticsDateRange": "{start} – {end} · أيام كاملة بتوقيت نيويورك.",
+    "analyticsDateRange": "{start} – {end} · يشمل اليوم حتى الآن بتوقيت نيويورك. يُحدَّث كل 30 ثانية.",
     "currentOpen": "الطلبات المفتوحة",
     "currentSnapshot": "المتراكم الحالي في الحرم",
     "reportsReceived": "البلاغات الواردة",

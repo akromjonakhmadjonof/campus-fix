@@ -359,7 +359,7 @@
     "dashboardSubtitle": "Información de mantenimiento de todo el campus.",
     "reportingPeriod": "Período del informe",
     "lastDays": "Últimos {count} días",
-    "analyticsDateRange": "{start} – {end} · Días completos, hora de Nueva York.",
+    "analyticsDateRange": "{start} – {end} · Incluye lo que va de hoy, hora de Nueva York. Se actualiza cada 30 segundos.",
     "currentOpen": "Solicitudes abiertas",
     "currentSnapshot": "Pendientes actuales del campus",
     "reportsReceived": "Reportes recibidos",

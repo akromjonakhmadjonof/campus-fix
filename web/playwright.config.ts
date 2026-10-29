@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+const chromiumChannel = process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {};
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: false,
@@ -11,11 +12,21 @@ export default defineConfig({
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     reducedMotion: "reduce",
-    ...(process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {}),
   },
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "mobile", use: { ...devices["iPhone 13"], defaultBrowserType: "chromium" } },
+    { name: "desktop", use: { ...devices["Desktop Chrome"], ...chromiumChannel } },
+    {
+      name: "mobile",
+      use: { ...devices["iPhone 13"], defaultBrowserType: "chromium", ...chromiumChannel },
+    },
+    ...(process.env.PW_WEBKIT === "1"
+      ? [
+          {
+            name: "webkit",
+            use: { ...devices["iPhone 13"], browserName: "webkit" as const },
+          },
+        ]
+      : []),
   ],
   webServer: [
     {

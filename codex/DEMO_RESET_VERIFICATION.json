@@ -1,0 +1,29 @@
+{
+  "reports": 20,
+  "location": "Sutherland Building",
+  "verifiedImages": 20,
+  "verifiedSimilar": 20,
+  "metrics": [
+    {
+      "days": 7,
+      "reports": 20,
+      "open": 20,
+      "resolved": 0,
+      "votes": 40
+    },
+    {
+      "days": 30,
+      "reports": 20,
+      "open": 20,
+      "resolved": 0,
+      "votes": 40
+    },
+    {
+      "days": 90,
+      "reports": 20,
+      "open": 20,
+      "resolved": 0,
+      "votes": 40
+    }
+  ]
+}

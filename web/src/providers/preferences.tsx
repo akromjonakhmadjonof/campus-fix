@@ -1,14 +1,11 @@
 "use client";
 import { createContext, useContext, useEffect, useSyncExternalStore, type ReactNode } from "react";
-type Theme = "light" | "dark" | "system";
-const key = "campusfix.preferences";
-const read = () => {
-  try {
-    return localStorage.getItem(key) ?? "system|false";
-  } catch {
-    return "system|false";
-  }
-};
+import {
+  connectAppearance,
+  readPreferences,
+  writePreferences,
+  type ThemePreference as Theme,
+} from "@/lib/appearance";
 const subscribe = (callback: () => void) => {
   window.addEventListener("storage", callback);
   window.addEventListener("campus-preferences", callback);
@@ -23,30 +20,12 @@ const Context = createContext<{
   update: (theme: Theme, reduce: boolean) => void;
 } | null>(null);
 export function PreferencesProvider({ children }: { children: ReactNode }) {
-  const value = useSyncExternalStore(subscribe, read, () => "system|false");
+  const value = useSyncExternalStore(subscribe, readPreferences, () => "system|false");
   const [raw, flag] = value.split("|");
   const theme: Theme = raw === "light" || raw === "dark" ? raw : "system";
   const reduce = flag === "true";
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const apply = () => {
-      const dark = theme === "dark" || (theme === "system" && media.matches);
-      document.documentElement.classList.toggle("dark", dark);
-      document.documentElement.classList.toggle("light", !dark);
-      document.documentElement.dataset.reduceMotion = String(reduce);
-    };
-    apply();
-    media.addEventListener("change", apply);
-    return () => media.removeEventListener("change", apply);
-  }, [theme, reduce]);
-  const update = (next: Theme, motion: boolean) => {
-    try {
-      localStorage.setItem(key, `${next}|${motion}`);
-    } catch {
-      /* The UI already reports upload errors; storage may be unavailable. */
-    }
-    window.dispatchEvent(new Event("campus-preferences"));
-  };
+  useEffect(connectAppearance, []);
+  const update = writePreferences;
   return <Context.Provider value={{ theme, reduce, update }}>{children}</Context.Provider>;
 }
 export function usePreferences() {

@@ -39,14 +39,17 @@ export async function getAnalytics(
   days: AnalyticsDays,
   now = new Date(),
 ): Promise<Analytics> {
+  // Preserve the UTC offset through the driver's parameter typing.
+  const asOf = now.toISOString();
   const [row] = await db.$queryRaw<{ data: Analytics }[]>`
     WITH RECURSIVE
     calendar AS (
-      SELECT date_trunc('day', ${now}::timestamptz AT TIME ZONE 'America/New_York') AS end_local
+      SELECT date_trunc('day', ${asOf}::timestamptz AT TIME ZONE 'America/New_York') AS today_local,
+        ${asOf}::timestamptz AT TIME ZONE 'UTC' AS end_at
     ), bounds AS (
-      SELECT end_local - ${days}::int * INTERVAL '1 day' AS start_local, end_local,
-        ((end_local - ${days}::int * INTERVAL '1 day') AT TIME ZONE 'America/New_York') AT TIME ZONE 'UTC' AS start_at,
-        (end_local AT TIME ZONE 'America/New_York') AT TIME ZONE 'UTC' AS end_at
+      SELECT today_local - (${days}::int - 1) * INTERVAL '1 day' AS start_local, today_local,
+        ((today_local - (${days}::int - 1) * INTERVAL '1 day') AT TIME ZONE 'America/New_York') AT TIME ZONE 'UTC' AS start_at,
+        end_at
       FROM calendar
     ), roots AS (
       SELECT id, id AS root_id, name AS root_name FROM "Location" WHERE "parentId" IS NULL
@@ -88,7 +91,7 @@ export async function getAnalytics(
       SELECT (("createdAt" AT TIME ZONE 'UTC') AT TIME ZONE 'America/New_York')::date AS day, COUNT(*)::int AS count
       FROM latest_resolution GROUP BY day
     ), days AS (
-      SELECT generate_series(start_local, end_local - INTERVAL '1 day', INTERVAL '1 day')::date AS day FROM bounds
+      SELECT generate_series(start_local, today_local, INTERVAL '1 day')::date AS day FROM bounds
     ), location_counts AS (
       SELECT roots.root_id AS id, roots.root_name AS name, COUNT(*)::int AS count
       FROM incoming r JOIN roots ON roots.id = r."locationId" GROUP BY roots.root_id, roots.root_name

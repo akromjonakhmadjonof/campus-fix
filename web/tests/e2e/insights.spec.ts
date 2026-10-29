@@ -219,6 +219,69 @@ test("staff dashboard uses database metrics, filters without reloads and refresh
   await ownerContext.close();
 });
 
+test("finishing a request today updates API totals, the cached dashboard and another open dashboard", async ({
+  page,
+  browser,
+}) => {
+  test.setTimeout(90000);
+  const ownerContext = await browser.newContext();
+  const owner = await ownerContext.newPage();
+  const created = await report(owner);
+  await staff(page);
+  const snapshots = await Promise.all(
+    [7, 30, 90].map(async (days) =>
+      (await page.request.get(base + "/staff/analytics?days=" + days)).json(),
+    ),
+  );
+  await page.goto("/en/staff/dashboard");
+  const watcher = await page.context().newPage();
+  await watcher.clock.install();
+  await watcher.goto("/en/staff/dashboard");
+  const resolved = (surface: Page) => surface.locator('[data-metric="resolvedRequests"] strong');
+  const number = (value: number) => new Intl.NumberFormat("en").format(value);
+  await expect(resolved(page)).toHaveText(number(snapshots[1].resolved));
+  await expect(resolved(watcher)).toHaveText(number(snapshots[1].resolved));
+  const originBefore = await page.evaluate(() => performance.timeOrigin);
+  const watcherOrigin = await watcher.evaluate(() => performance.timeOrigin);
+  const nav = page.getByRole("navigation", { name: "CampusFix" });
+  await nav.getByRole("link", { name: en.app.staffRequests, exact: true }).click();
+  await page.locator(".search-box input").fill(created.title);
+  await page.getByText(created.title, { exact: true }).click();
+  for (const [action, status] of [
+    [en.app.accept, "ACCEPTED"],
+    [en.app.startWork, "IN_PROGRESS"],
+    [en.app.resolve, "RESOLVED"],
+  ] as const) {
+    await page
+      .locator("#status-note")
+      .fill("Fictional repair completed for live analytics verification.");
+    await page.getByRole("button", { name: action, exact: true }).click();
+    await expect(page.locator(".detail-heading .status-badge")).toHaveText(en.app.statuses[status]);
+  }
+  await nav.getByRole("link", { name: en.app.dashboard, exact: true }).click();
+  await expect(resolved(page)).toHaveText(number(snapshots[1].resolved + 1));
+  await expect(page.locator('[data-metric="currentOpen"] strong')).toHaveText(
+    number(snapshots[1].currentOpen - 1),
+  );
+  expect(await page.evaluate(() => performance.timeOrigin)).toBe(originBefore);
+  await watcher.clock.fastForward(31000);
+  await expect(resolved(watcher)).toHaveText(number(snapshots[1].resolved + 1));
+  expect(await watcher.evaluate(() => performance.timeOrigin)).toBe(watcherOrigin);
+  for (const [index, days] of [7, 30, 90].entries()) {
+    const response = await page.request.get(base + "/staff/analytics?days=" + days);
+    expect(response.headers()["cache-control"]).toContain("no-store");
+    const after = await response.json();
+    expect(after.resolved).toBe(snapshots[index].resolved + 1);
+    expect(after.currentOpen).toBe(snapshots[index].currentOpen - 1);
+    expect(after.trends.at(-1).resolutions).toBe(snapshots[index].trends.at(-1).resolutions + 1);
+    expect(
+      after.trends.reduce((sum: number, day: { resolutions: number }) => sum + day.resolutions, 0),
+    ).toBe(after.resolved);
+  }
+  await watcher.close();
+  await ownerContext.close();
+});
+
 test("notification and dashboard visual matrix uses real records, themes and five translations", async ({
   page,
   browser,

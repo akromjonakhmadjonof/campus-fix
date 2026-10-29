@@ -1,3 +1,4 @@
+import { appearanceBootstrap } from "@/lib/appearance";
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
@@ -34,7 +35,12 @@ export async function generateMetadata({
   });
   return { title: "CampusFix", description: t("tagline") };
 }
-export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "light dark",
+};
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -52,11 +58,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var p=(localStorage.getItem('campusfix.preferences')||'system|false').split('|');var d=p[0]==='dark'||(p[0]==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.add(d?'dark':'light');document.documentElement.dataset.reduceMotion=p[1];}catch{document.documentElement.classList.add('light');}`,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: appearanceBootstrap }} />
       </head>
       <body className={`${nunito.variable} ${arabic.variable} min-h-dvh font-sans antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/New_York">

@@ -359,7 +359,7 @@
     "dashboardSubtitle": "Campus-wide maintenance insights.",
     "reportingPeriod": "Reporting period",
     "lastDays": "Last {count} days",
-    "analyticsDateRange": "{start} – {end} · Complete days, New York time.",
+    "analyticsDateRange": "{start} – {end} · Includes today so far, New York time. Updates every 30 seconds.",
     "currentOpen": "Open requests",
     "currentSnapshot": "Current campus backlog",
     "reportsReceived": "Reports received",

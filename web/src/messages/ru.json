@@ -359,7 +359,7 @@
     "dashboardSubtitle": "Показатели обслуживания всего кампуса.",
     "reportingPeriod": "Отчётный период",
     "lastDays": "Последние {count} дней",
-    "analyticsDateRange": "{start} – {end} · Полные дни, время Нью-Йорка.",
+    "analyticsDateRange": "{start} – {end} · Включая сегодняшний день до текущего момента, время Нью-Йорка. Обновляется каждые 30 секунд.",
     "currentOpen": "Открытые заявки",
     "currentSnapshot": "Текущие задачи кампуса",
     "reportsReceived": "Получено заявок",

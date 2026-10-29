@@ -15,6 +15,7 @@ const config: ExpoConfig = {
   version: "0.1.0",
   orientation: "default",
   userInterfaceStyle: "automatic",
+  backgroundColor: "#fbfaf7",
   ios: {
     supportsTablet: true,
     bundleIdentifier: "app.campusfix.mobile",
@@ -34,6 +35,12 @@ const config: ExpoConfig = {
         },
   },
   android: { package: "app.campusfix.mobile" },
-  plugins: [["expo-build-properties", { android: { usesCleartextTraffic: development } }]],
+  plugins: [
+    ["expo-build-properties", { android: { usesCleartextTraffic: development } }],
+    "expo-system-ui",
+    ["expo-status-bar", { hidden: false }],
+    ["expo-navigation-bar", { enforceContrast: false, hidden: false }],
+    ["expo-splash-screen", { backgroundColor: "#fbfaf7", dark: { backgroundColor: "#0b0d12" } }],
+  ],
 };
 export default config;

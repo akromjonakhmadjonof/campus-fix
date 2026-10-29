@@ -91,6 +91,12 @@
 }
 
 :root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  /* Sixth category: a warm coral derived from existing semantic colors. */
+  --chart-6: color-mix(in oklch, var(--chart-4) 40%, var(--destructive));
   --radius: 0.875rem;
   --success: rgb(59, 141, 93);
   --shadow-xs: 0 1px 3px 0 rgb(0 0 0 / 0.05);
@@ -146,8 +152,10 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
   body {
     @apply bg-background text-foreground;
+    min-height: 100%;
     margin: 0;
   }
   :focus-visible {
@@ -182,4 +190,12 @@ html[data-reduce-motion="true"] *::after {
   animation-duration: 0.01ms !important;
   transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;
+}
+
+/* The native SafeAreaView owns all four insets; Safari owns them in a browser. */
+html[data-native="true"] {
+  --safe-area-top: 0px;
+  --safe-area-bottom: 0px;
+  --safe-area-left: 0px;
+  --safe-area-right: 0px;
 }

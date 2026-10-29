@@ -40,7 +40,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, []);
   const platform = usePlatform();
   useEffect(() => {
-    document.documentElement.dataset.native = String(platform.isNative);
+    document.documentElement.dataset.native = String(
+      platform.isNative || !!window.ReactNativeWebView,
+    );
   }, [platform.isNative]);
   return (
     <QueryClientProvider client={getQueryClient()}>

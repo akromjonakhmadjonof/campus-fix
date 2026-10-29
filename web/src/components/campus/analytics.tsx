@@ -1,4 +1,6 @@
 "use client";
+import { useId, useState } from "react";
+import { categoryColors } from "@/lib/chart-colors";
 import { useSearchParams } from "next/navigation";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useFormatter, useLocale, useNow, useTranslations } from "next-intl";
@@ -25,20 +27,70 @@ import { Choice } from "./choice";
 import { useTaxonomyLabel } from "./taxonomy-label";
 import { EmptyState, ErrorState, LoadingState, PageHeader, StatusBadge } from "./shared";
 
+function ExternalLegend({
+  host,
+  items,
+}: {
+  host: HTMLDivElement | null;
+  items: { key: string; color: string }[];
+}) {
+  if (!host) return null;
+  return (
+    <ChartLegend
+      portal={host}
+      wrapperStyle={{ width: "100%" }}
+      content={() => (
+        <ChartLegendContent
+          className="analytics-legend"
+          payload={items.map((item) => ({
+            dataKey: item.key,
+            value: item.key,
+            color: item.color,
+            type: "square" as const,
+          }))}
+        />
+      )}
+    />
+  );
+}
+function LegendLabel({ name, value }: { name: string; value: string }) {
+  return (
+    <>
+      <span className="chart-legend-label">{name}</span>
+      <strong className="chart-legend-value">{value}</strong>
+    </>
+  );
+}
 function RankChart({
   title,
   description,
   rows,
-  color,
+  colors,
 }: {
   title: string;
   description: string;
   rows: { id: string; name: string; count: number }[];
-  color: string;
+  colors: Record<string, string>;
 }) {
   const t = useTranslations("app"),
     format = useFormatter(),
     rtl = useLocale() === "ar";
+  const legendId = useId();
+  const [legendHost, setLegendHost] = useState<HTMLDivElement | null>(null);
+  const bars = rows.map((row, index) => ({
+    ...row,
+    key: `category${index}`,
+    fill: colors[row.id],
+  }));
+  const config = Object.fromEntries(
+    bars.map((row) => [
+      row.key,
+      {
+        label: <LegendLabel name={row.name} value={format.number(row.count)} />,
+        color: row.fill,
+      },
+    ]),
+  );
   return (
     <section className="surface analytics-chart">
       <h2>{title}</h2>
@@ -46,16 +98,17 @@ function RankChart({
       {rows.length ? (
         <>
           <ChartContainer
-            config={{ count: { label: t("reportsCountLabel"), color } }}
+            config={config}
             className="rank-chart"
             aria-label={title}
+            aria-describedby={legendId}
             role="img"
           >
             <BarChart
               accessibilityLayer
-              data={rows}
+              data={bars}
               layout="vertical"
-              margin={{ left: 0, right: 8 }}
+              margin={{ left: 6, right: 8 }}
             >
               <CartesianGrid horizontal={false} />
               <XAxis
@@ -66,39 +119,34 @@ function RankChart({
                 reversed={rtl}
                 tickFormatter={(value) => format.number(value)}
               />
-              <YAxis
-                dataKey="name"
-                type="category"
-                tickLine={false}
-                axisLine={false}
-                width={112}
-                orientation={rtl ? "right" : "left"}
-                tick={{ textAnchor: "end" }}
-                tickFormatter={(value: string) =>
-                  value.length > 18 ? value.slice(0, 17) + "…" : value
-                }
-              />
+              <YAxis dataKey="key" type="category" hide />
               <ChartTooltip
                 content={
                   <ChartTooltipContent
-                    nameKey="count"
-                    formatter={(value) => (
-                      <span>
-                        {format.number(Number(value))} {t("reportsCountLabel")}
-                      </span>
+                    hideLabel
+                    formatter={(value, _name, item) => (
+                      <>
+                        <span>{item.payload.name}</span>
+                        <strong>{format.number(Number(value))}</strong>
+                      </>
                     )}
                   />
                 }
               />
-              <Bar
-                dataKey="count"
-                fill="var(--color-count)"
-                radius={4}
-                isAnimationActive={false}
-                maxBarSize={24}
+              <Bar dataKey="count" radius={4} isAnimationActive={false} maxBarSize={24} />
+              <ExternalLegend
+                host={legendHost}
+                items={bars.map((row) => ({ key: row.key, color: row.fill }))}
               />
             </BarChart>
           </ChartContainer>
+          <div
+            id={legendId}
+            ref={setLegendHost}
+            className="chart-legend-host"
+            role="group"
+            aria-label={title}
+          />
           <details className="chart-data">
             <summary>{t("viewChartData")}</summary>
             <table>
@@ -130,6 +178,8 @@ export function AnalyticsScreen() {
     format = useFormatter(),
     locale = useLocale(),
     label = useTaxonomyLabel();
+  const trendLegendId = useId();
+  const [trendLegendHost, setTrendLegendHost] = useState<HTMLDivElement | null>(null);
   const params = useSearchParams(),
     now = useNow({ updateInterval: 60000 });
   const requested = Number(params.get("days") ?? 30);
@@ -138,7 +188,9 @@ export function AnalyticsScreen() {
     queryKey: ["campus", "staff-analytics", days],
     queryFn: ({ signal }) => analytics(days, signal),
     placeholderData: keepPreviousData,
-    staleTime: 60000,
+    staleTime: 0,
+    refetchInterval: 30000,
+    refetchIntervalInBackground: false,
     refetchOnWindowFocus: true,
   });
   const duration = (ms: number | null) => {
@@ -161,6 +213,11 @@ export function AnalyticsScreen() {
   const dateLabel = (value: string) =>
     format.dateTime(new Date(value + "T12:00:00Z"), { month: "short", day: "numeric" });
   const data = query.data;
+  const locationColors = categoryColors([
+    ...(data?.locations ?? []).map((row) => row.id),
+    ...(data?.hotspots ?? []).map((row) => row.id),
+  ]);
+  const issueColors = categoryColors((data?.issues ?? []).map((row) => row.id));
   const metrics = data
     ? ([
         {
@@ -235,7 +292,7 @@ export function AnalyticsScreen() {
             <p className="analytics-period">
               {t("analyticsDateRange", {
                 start: format.dateTime(new Date(data.period.start), { dateStyle: "medium" }),
-                end: format.dateTime(new Date(new Date(data.period.end).getTime() - 1), {
+                end: format.dateTime(new Date(data.period.end), {
                   dateStyle: "medium",
                 }),
               })}
@@ -258,12 +315,29 @@ export function AnalyticsScreen() {
               )}
               <ChartContainer
                 config={{
-                  reports: { label: t("reportsCreated"), color: "var(--chart-1)" },
-                  resolutions: { label: t("reportsResolved"), color: "var(--chart-2)" },
+                  reports: {
+                    label: (
+                      <LegendLabel
+                        name={t("reportsCreated")}
+                        value={format.number(data.totalReports)}
+                      />
+                    ),
+                    color: "var(--chart-1)",
+                  },
+                  resolutions: {
+                    label: (
+                      <LegendLabel
+                        name={t("reportsResolved")}
+                        value={format.number(data.resolved)}
+                      />
+                    ),
+                    color: "var(--chart-2)",
+                  },
                 }}
                 className="trend-chart"
                 role="img"
                 aria-label={t("reportsVsResolutions")}
+                aria-describedby={trendLegendId}
               >
                 <LineChart accessibilityLayer data={data.trends} margin={{ left: 0, right: 12 }}>
                   <CartesianGrid vertical={false} />
@@ -295,7 +369,13 @@ export function AnalyticsScreen() {
                       />
                     }
                   />
-                  <ChartLegend content={<ChartLegendContent />} />
+                  <ExternalLegend
+                    host={trendLegendHost}
+                    items={[
+                      { key: "reports", color: "var(--chart-1)" },
+                      { key: "resolutions", color: "var(--chart-2)" },
+                    ]}
+                  />
                   <Line
                     type="linear"
                     dataKey="reports"
@@ -314,6 +394,13 @@ export function AnalyticsScreen() {
                   />
                 </LineChart>
               </ChartContainer>
+              <div
+                id={trendLegendId}
+                ref={setTrendLegendHost}
+                className="chart-legend-host trend-legend-host"
+                role="group"
+                aria-label={t("reportsVsResolutions")}
+              />
               <details className="chart-data">
                 <summary>{t("viewChartData")}</summary>
                 <table>
@@ -341,13 +428,13 @@ export function AnalyticsScreen() {
                 title={t("mostReportedLocations")}
                 description={t("locationRollupHint")}
                 rows={data.locations}
-                color="var(--chart-3)"
+                colors={locationColors}
               />
               <RankChart
                 title={t("commonIssues")}
                 description={t("selectedPeriod")}
                 rows={data.issues.map((issue) => ({ ...issue, name: label(issue) }))}
-                color="var(--chart-4)"
+                colors={issueColors}
               />
             </div>
             <section className="analytics-hotspots">
@@ -361,7 +448,14 @@ export function AnalyticsScreen() {
                     <article className="surface hotspot-card" key={spot.id}>
                       <span className="hotspot-rank">{format.number(index + 1)}</span>
                       <div>
-                        <h3>{spot.name}</h3>
+                        <h3 className="hotspot-label">
+                          <span
+                            className="chart-category-dot"
+                            style={{ backgroundColor: locationColors[spot.id] }}
+                            aria-hidden="true"
+                          />
+                          {spot.name}
+                        </h3>
                         <strong>{t("results", { count: spot.count })}</strong>
                         <p>
                           {t("leadingIssue", {

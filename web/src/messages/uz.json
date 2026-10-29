@@ -359,7 +359,7 @@
     "dashboardSubtitle": "Butun kampus bo‘yicha texnik xizmat ko‘rsatkichlari.",
     "reportingPeriod": "Hisobot davri",
     "lastDays": "So‘nggi {count} kun",
-    "analyticsDateRange": "{start} – {end} · To‘liq kunlar, Nyu-York vaqti.",
+    "analyticsDateRange": "{start} – {end} · Bugungi kunning hozirgacha bo‘lgan qismi ham kiradi, Nyu-York vaqti. Har 30 soniyada yangilanadi.",
     "currentOpen": "Ochiq so‘rovlar",
     "currentSnapshot": "Kampusdagi joriy kutilayotgan ishlar",
     "reportsReceived": "Kelgan xabarlar",

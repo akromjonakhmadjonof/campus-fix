@@ -215,12 +215,82 @@ describe.skipIf(!enabled)("PostgreSQL operational analytics", () => {
     expect(empty.attention.some((r) => r.reasons.includes("confirmed"))).toBe(true);
   });
 
-  it("uses complete New York calendar days across daylight-saving boundaries", async () => {
+  it.each([
+    ["2026-03-10T12:00:00Z", "2026-03-04T05:00:00.000Z", "2026-03-10"],
+    ["2026-11-03T12:00:00Z", "2026-10-28T04:00:00.000Z", "2026-11-03"],
+  ])(
+    "includes today with correct New York daylight-saving boundaries at %s",
+    async (instant, start, today) => {
+      if (!db) throw new Error("Database required");
+      const data = await getAnalytics(db, 7, new Date(instant));
+      expect(data.period.start).toBe(start);
+      expect(data.period.end).toBe(new Date(instant).toISOString());
+      expect(data.trends).toHaveLength(7);
+      expect(data.trends.at(-1)?.date).toBe(today);
+    },
+  );
+
+  it("counts today's received, completed and voted requests, includes the start and excludes the cutoff", async () => {
     if (!db) throw new Error("Database required");
-    const data = await getAnalytics(db, 7, new Date("2026-03-10T12:00:00Z"));
-    expect(data.period.start).toBe("2026-03-03T05:00:00.000Z");
-    expect(data.period.end).toBe("2026-03-10T04:00:00.000Z");
-    expect(data.trends).toHaveLength(7);
+    const instant = new Date("2036-06-21T16:00:00Z");
+    const times = [
+      "2036-06-15T03:59:59.999Z",
+      "2036-06-15T04:00:00Z",
+      "2036-06-21T04:00:00Z",
+      instant.toISOString(),
+    ];
+    for (const [index, time] of times.entries()) {
+      const createdAt = new Date(time);
+      const row = await db.report.create({
+        data: {
+          idempotencyKey: randomUUID(),
+          title: "Fictional live analytics boundary",
+          description: "Isolated boundary regression fixture.",
+          exactLocation: "Fixture",
+          category: "OTHER",
+          profileId,
+          locationId: rootId,
+          issueTypeId: typeId,
+          createdAt,
+          status: index === 2 ? "RESOLVED" : "REPORTED",
+          history: {
+            create:
+              index === 2
+                ? [
+                    {
+                      status: "IN_PROGRESS",
+                      actorType: "staff",
+                      staffId: workerId,
+                      note: "Started today",
+                      createdAt: new Date("2036-06-21T05:00:00Z"),
+                    },
+                    {
+                      status: "RESOLVED",
+                      actorType: "staff",
+                      staffId: workerId,
+                      note: "Finished today",
+                      createdAt: new Date("2036-06-21T06:00:00Z"),
+                    },
+                  ]
+                : [],
+          },
+        },
+      });
+      ids.push(row.id);
+      if (index === 2)
+        await db.voteEvent.create({
+          data: { reportId: row.id, profileId, createdAt: new Date("2036-06-21T07:00:00Z") },
+        });
+    }
+    const data = await getAnalytics(db, 7, instant);
+    expect(data.totalReports).toBe(2);
+    expect(data.resolved).toBe(1);
+    expect(data.totalUpvotes).toBe(1);
+    expect(data.averageWaitingMs).toBe(3600000);
+    expect(data.averageResolutionMs).toBe(3600000);
+    expect(data.trends.at(-1)).toEqual({ date: "2036-06-21", reports: 1, resolutions: 1 });
+    expect(data.trends.reduce((sum, day) => sum + day.reports, 0)).toBe(data.totalReports);
+    expect(data.trends.reduce((sum, day) => sum + day.resolutions, 0)).toBe(data.resolved);
   });
 
   it("authenticates the campus-wide endpoint and rejects invalid periods", async () => {
@@ -231,6 +301,7 @@ describe.skipIf(!enabled)("PostgreSQL operational analytics", () => {
     expect((await req("?days=30&staffId=" + workerId, cookie)).statusCode).toBe(400);
     const result = await req("?days=30", cookie);
     expect(result.statusCode).toBe(200);
+    expect(result.headers["cache-control"]).toBe("private, no-store");
     expect(result.json().period.days).toBe(30);
   });
 });

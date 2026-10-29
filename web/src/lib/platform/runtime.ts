@@ -1,3 +1,4 @@
+import { applyAppearance } from "../appearance";
 import { BRIDGE_EVENT, parseNativeMessage, type WebReadyMessage } from "./protocol";
 export type Platform = "web" | "android" | "ios";
 export interface PlatformInfo {
@@ -51,6 +52,8 @@ export function connectPlatformBridge() {
       isWeb: false,
       bridgeState: "connected",
     });
+    // Every handshake replays current appearance, including native reloads and late bridges.
+    applyAppearance();
   };
   // Listen first; a native reply may be immediate.
   window.addEventListener(BRIDGE_EVENT, receive);

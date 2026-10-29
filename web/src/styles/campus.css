@@ -1,5 +1,7 @@
 /* CampusFix components share the semantic tokens in globals.css. */
 .app-shell {
+  background: var(--background);
+  color: var(--foreground);
   min-height: 100dvh;
   font-size: 14px;
   line-height: 1.55;
@@ -72,7 +74,8 @@ textarea {
   width: 100%;
   max-width: 1140px;
   margin-inline: auto;
-  padding: calc(24px + env(safe-area-inset-top)) 20px calc(112px + env(safe-area-inset-bottom));
+  padding: calc(24px + var(--safe-area-top)) calc(20px + var(--safe-area-right))
+    calc(112px + var(--safe-area-bottom)) calc(20px + var(--safe-area-left));
 }
 .desktop-sidebar {
   display: none;
@@ -1162,8 +1165,9 @@ button.settings-row {
 }
 .mobile-tabs {
   position: fixed;
-  bottom: calc(10px + env(safe-area-inset-bottom));
-  inset-inline: 16px;
+  bottom: calc(10px + var(--safe-area-bottom));
+  left: calc(16px + var(--safe-area-left));
+  right: calc(16px + var(--safe-area-right));
   z-index: 40;
   display: flex;
   justify-content: space-around;
@@ -1200,13 +1204,6 @@ button.settings-row {
 .mobile-tabs.staff-tabs small {
   font-size: 10px;
 }
-html[data-native="true"] .page-container {
-  padding-block-start: 24px;
-  padding-block-end: 112px;
-}
-html[data-native="true"] .mobile-tabs {
-  bottom: 10px;
-}
 [dir="rtl"] .directional {
   transform: scaleX(-1);
 }
@@ -1215,7 +1212,8 @@ bdi {
 }
 @media (min-width: 600px) {
   .page-container {
-    padding-inline: 32px;
+    padding-left: calc(32px + var(--safe-area-left));
+    padding-right: calc(32px + var(--safe-area-right));
   }
   .filters-panel {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1242,7 +1240,8 @@ bdi {
 }
 @media (min-width: 1024px) {
   .page-container {
-    padding: 40px 40px 120px;
+    padding: calc(40px + var(--safe-area-top)) calc(40px + var(--safe-area-right))
+      calc(120px + var(--safe-area-bottom)) calc(40px + var(--safe-area-left));
   }
   .account-page,
   .narrow-page {
@@ -1298,7 +1297,8 @@ bdi {
 }
 @media (max-width: 389px) {
   .page-container {
-    padding-inline: 16px;
+    padding-left: calc(16px + var(--safe-area-left));
+    padding-right: calc(16px + var(--safe-area-right));
   }
   .page-heading {
     gap: 12px;
@@ -1492,7 +1492,7 @@ bdi {
 }
 /* Keep browser focus/anchor scrolling clear of the persistent navigation. */
 html {
-  scroll-padding-block-end: calc(96px + env(safe-area-inset-bottom));
+  scroll-padding-block-end: calc(96px + var(--safe-area-bottom));
 }
 /* The login uses the shared palette, with a stable navy brand surface in either theme. */
 :root {
@@ -1500,6 +1500,7 @@ html {
   --brand-on-navy: rgb(251, 250, 247);
 }
 .auth-shell {
+  background: var(--background);
   min-height: 100dvh;
 }
 .staff-auth {
@@ -1513,7 +1514,8 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(36px + env(safe-area-inset-top)) 24px calc(36px + env(safe-area-inset-bottom));
+  padding: calc(36px + var(--safe-area-top)) calc(24px + var(--safe-area-right))
+    calc(36px + var(--safe-area-bottom)) calc(24px + var(--safe-area-left));
   background-color: var(--background);
   background-image:
     linear-gradient(color-mix(in srgb, var(--border) 24%, transparent) 1px, transparent 1px),
@@ -1642,9 +1644,6 @@ html {
 [dir="rtl"] .auth-eyebrow {
   letter-spacing: 0;
 }
-html[data-native="true"] .staff-auth-content {
-  padding-block: 36px;
-}
 @media (min-width: 1024px) {
   .staff-auth {
     grid-template-columns: minmax(0, 43fr) minmax(0, 57fr);
@@ -1689,7 +1688,8 @@ html[data-native="true"] .staff-auth-content {
     color: color-mix(in srgb, var(--brand-on-navy) 82%, transparent);
   }
   .staff-auth-content {
-    padding: 64px;
+    padding: calc(64px + var(--safe-area-top)) calc(64px + var(--safe-area-right))
+      calc(64px + var(--safe-area-bottom)) calc(64px + var(--safe-area-left));
   }
   .auth-mobile-brand,
   .auth-mobile-trust {
@@ -1699,7 +1699,8 @@ html[data-native="true"] .staff-auth-content {
 @media (max-height: 680px) and (max-width: 1023px) {
   .staff-auth-content {
     align-items: flex-start;
-    padding-block: 24px;
+    padding-top: calc(24px + var(--safe-area-top));
+    padding-bottom: calc(24px + var(--safe-area-bottom));
   }
   .auth-mobile-brand {
     margin-block-end: 28px;
@@ -2021,8 +2022,8 @@ html[data-native="true"] .staff-auth-content {
   aspect-ratio: auto;
 }
 .rank-chart {
-  height: 275px;
-  min-height: 275px;
+  height: 210px;
+  min-height: 210px;
   width: 100%;
   aspect-ratio: auto;
 }
@@ -2164,5 +2165,57 @@ html[data-native="true"] .staff-auth-content {
   .trend-chart {
     height: 275px;
     min-height: 275px;
+  }
+}
+
+/* Official ChartLegendContent is portaled below each plot by Recharts. */
+.chart-legend-host {
+  margin-block-start: 12px;
+  min-width: 0;
+}
+.analytics-legend {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  padding-block-start: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.analytics-legend > div {
+  min-width: 0;
+  gap: 9px;
+  align-items: baseline;
+}
+.analytics-legend > div > div {
+  align-self: flex-start;
+  margin-block-start: 5px;
+}
+.chart-legend-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+}
+.chart-legend-value {
+  margin-inline-start: auto;
+  padding-inline-start: 8px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.hotspot-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.chart-category-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+@media (min-width: 600px) {
+  .trend-legend-host .analytics-legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 }
